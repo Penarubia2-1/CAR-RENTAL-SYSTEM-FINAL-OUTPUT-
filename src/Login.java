@@ -55,6 +55,7 @@ public class Login extends JFrame implements ActionListener{
          add(psswrdfldPassword);
          add(btnLogin);
          add(btnCreate);
+         add(lblLogin);
          
          setVisible(true);
          setResizable(false);

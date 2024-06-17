@@ -26,7 +26,7 @@ public class ClientAdmin extends JFrame implements ActionListener  {
        
        //img
         rent = new JLabel();
-        rent.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\rent.jpg").getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH)));
+        rent.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\2.png").getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH)));
         rent.setBounds(0, 0, 800, 600);
  
         
@@ -37,20 +37,20 @@ public class ClientAdmin extends JFrame implements ActionListener  {
 
 
         lblYouAreA = new JLabel("Are You A?");
-        lblYouAreA.setBounds(360, 105, 150,20);
+        lblYouAreA.setBounds(360, 100, 150,20);
         lblYouAreA.setFont(new Font("Arial", Font.BOLD,20));
         lblYouAreA.setForeground(Color.white);
 
 
         btnClient = new JButton("CLIENT");
-        btnClient.setBounds(320,150,180,40);
+        btnClient.setBounds(320,145,180,40);
         btnClient.setFont(new Font("Arial", Font.BOLD,20));
         btnClient.setForeground(Color.black);
         btnClient.setBackground(Color.orange);
 
 
         btnAdmin = new JButton("ADMIN");
-        btnAdmin.setBounds(320, 210, 180, 40);
+        btnAdmin.setBounds(320, 200, 180, 40);
         btnAdmin.setFont(new Font("Arial", Font.BOLD,20));
         btnAdmin.setForeground(Color.black);
         btnAdmin.setBackground(Color.orange);
