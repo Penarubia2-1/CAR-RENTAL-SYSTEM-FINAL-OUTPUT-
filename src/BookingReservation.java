@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -13,107 +15,121 @@ import javax.swing.*;
  */
 public class BookingReservation  extends JFrame implements ActionListener {
     
-     private JFrame f = new JFrame("Reservation");
-    private JLabel lblVehicleModel, lbldays, lblAddress,lblContactnumber;
+    
+    private JLabel lblVehicleModel, lbldays, lblAddress,lblContactnumber,Reservation,lblname;
     private JTextField txtfldVehicleModel = new JTextField();
     private JTextField txtflddays = new JTextField();
-       private JTextField txtfldAddress = new JTextField();
-       private JTextField txtfldContactnumber = new JTextField(); 
-
-    private JButton btnNext, btnBack;
+    private JTextField txtfldAddress = new JTextField();
+    private JTextField txtfldContactnumber = new JTextField(); 
+    private JTextField txtfldname = new JTextField();
+    private JButton btnreserve, btnBack;
 
     
     
     BookingReservation(){
     
-    f.setSize(600, 350);
-    f.setLayout(null);
-    f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+    setSize(600, 600);
+    setLayout(null);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    getContentPane().setBackground(Color.black);
     
-    lblVehicleModel = new JLabel("Vehicle ID:");
-    lblVehicleModel.setBounds(90, 50, 200, 30);
+     //image
+        Reservation = new JLabel();
+        Reservation.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\Daiichi Magno\\Documents\\NetBeansProjects\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\imgreservation.png").getImage().getScaledInstance(600, 600, Image.SCALE_SMOOTH)));
+        Reservation.setBounds(0, 120, 600, 600);
+         
+    
+    lblname = new JLabel("NAME:");
+    lblname.setBounds(90, 50, 200, 30);
+    lblname.setFont(new Font("Arial", Font.BOLD, 20));
+    lblname.setForeground(Color.white);
+    
+    
+    
+    lblVehicleModel = new JLabel("VEHICLE_ID:");
+    lblVehicleModel.setBounds(90, 100, 200, 30);
     lblVehicleModel.setFont(new Font("Arial", Font.BOLD, 20));
+    lblVehicleModel.setForeground(Color.white);
     
-    lbldays = new JLabel("Days:");
-    lbldays.setBounds(90, 100, 200, 30);
+    
+    lbldays = new JLabel("DAYS:");
+    lbldays.setBounds(90, 150, 200, 30);
     lbldays.setFont(new Font("Arial", Font.BOLD, 20));
-  
+    lbldays.setForeground(Color.white);
     
    
-    lblAddress = new JLabel("Address:");
-    lblAddress.setBounds(90, 150, 200, 30);
+    lblAddress = new JLabel("ADDRESS:");
+    lblAddress.setBounds(90, 200, 200, 30);
     lblAddress.setFont(new Font("Arial", Font.BOLD, 20));
+    lblAddress.setForeground(Color.white);
     
-    lblContactnumber = new JLabel("Contactnumber:");
-    lblContactnumber.setBounds(90, 200, 200, 30);
+    lblContactnumber = new JLabel("CONTACT NUMBER:");
+    lblContactnumber.setBounds(90, 250, 200, 30);
     lblContactnumber.setFont(new Font("Arial", Font.BOLD, 20));
+    lblContactnumber.setForeground(Color.white);
         
-    btnNext = new JButton("Next");
-    btnNext.setBounds(170, 250, 100, 30);
-    btnNext.setFont(new Font("Arial", Font.BOLD, 15));
-    btnNext.addActionListener(this);
-   
     btnBack = new JButton("Back");
-    btnBack.setBounds(290, 250, 100, 30);
+    btnBack.setBounds(170, 300, 100, 30);
     btnBack.setFont(new Font("Arial", Font.BOLD, 15));
     btnBack.addActionListener(this);
+    btnBack.setForeground(Color.white);
+    btnBack.setBackground(Color.blue);
     
-    txtfldVehicleModel.setBounds(250, 50, 200,30);
+    btnreserve = new JButton("Reserve");
+    btnreserve.setBounds(290, 300, 100, 30);
+    btnreserve.setFont(new Font("Arial", Font.BOLD, 15));
+    btnreserve.addActionListener(this);
+    btnreserve.setBackground(Color.blue);
+    btnreserve.setForeground(Color.WHITE);
+    
+    txtfldname.setBounds(280, 50, 200,30);
+    txtfldname.setFont(new Font("Arial", Font.PLAIN, 20));
+    
+    
+    txtfldVehicleModel.setBounds(280, 100, 200,30);
     txtfldVehicleModel.setFont(new Font("Arial", Font.PLAIN, 20));
+     
     
-    txtflddays.setBounds(250, 100, 200,30);
+    txtflddays.setBounds(280, 150, 200,30);
     txtflddays.setFont(new Font("Arial", Font.PLAIN, 20));
+     
     
     
-    txtfldAddress.setBounds(250,150 , 200,30);
+    txtfldAddress.setBounds(280,200 , 200,30);
     txtfldAddress.setFont(new Font("Arial", Font.PLAIN, 20));
     
-    txtfldContactnumber.setBounds(250, 200, 200,30);
+    txtfldContactnumber.setBounds(290, 250, 200,30);
     txtfldContactnumber.setFont(new Font("Arial", Font.PLAIN, 20));
    
  
     
  
  
-    f.add(btnNext);
-    f.add(btnBack);
-    f.add(lblVehicleModel);
-    f.add(lbldays);
-    f.add(lblContactnumber);
-    f.add(lblAddress);
-    f.add(txtfldVehicleModel);
-    f.add(txtflddays);
-    f.add(txtfldContactnumber);
-    f.add(txtfldAddress);
-            
-    f.setVisible(true);
-    f.setResizable(false);
-        
+    add(btnreserve);
+    add(btnBack);
+    add(lblVehicleModel);
+    add(lbldays);
+    add(lblContactnumber);
+    add(lblAddress);
+    add(txtfldVehicleModel);
+    add(txtflddays);
+    add(txtfldContactnumber);
+    add(txtfldAddress);
+    add(Reservation);
+    add(txtfldname);      
+    add(lblname);
         
         
     }
     @Override
     public void actionPerformed(ActionEvent e){
-        if(e.getSource() == btnNext){
-            JFrame frame2 = new JFrame("");
-            frame2.setVisible(true);
-            frame2.setSize(450,400);
-            JLabel label = new JLabel("");
-            JPanel panel = new JPanel();
-            frame2.add(panel);
-            panel.add(label);
-                   
+         dispose ();
+            if(e.getSource() == btnBack){
+            ChooseServices cs = new ChooseServices();
+            cs.setVisible(true);
+    }
  
-        }else if(e.getSource() == btnBack){
-           JFrame frame3 = new JFrame("");
-            frame3.setVisible(true);
-            frame3.setSize(450,400);
-            JLabel label = new JLabel("");
-            JPanel panel = new JPanel();
-            frame3.add(panel);
-            panel.add(label);
-            
            
         }
     }   
-    }
+    
