@@ -70,9 +70,12 @@ public class ChooseServices  extends JFrame implements ActionListener{
            av.setVisible(true);
        }
         
+        else if (e.getSource()==btnReservation){
+           BookingReservation vr=new BookingReservation();
+           vr.setVisible(true);
    }
 }
-        
+}
      
      
      
