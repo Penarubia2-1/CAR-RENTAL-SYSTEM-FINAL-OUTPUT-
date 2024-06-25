@@ -22,7 +22,7 @@ public class BookingReservation  extends JFrame implements ActionListener {
     private JTextField txtfldAddress = new JTextField();
     private JTextField txtfldContactnumber = new JTextField(); 
     private JTextField txtfldname = new JTextField();
-    private JButton btnreserve, btnBack;
+    private JButton btnreserve, btnBack, btnReset;
 
     
     
@@ -69,14 +69,21 @@ public class BookingReservation  extends JFrame implements ActionListener {
     lblContactnumber.setForeground(Color.white);
         
     btnBack = new JButton("Back");
-    btnBack.setBounds(170, 300, 100, 30);
+    btnBack.setBounds(70, 300, 100, 30);
     btnBack.setFont(new Font("Arial", Font.BOLD, 15));
     btnBack.addActionListener(this);
     btnBack.setForeground(Color.white);
     btnBack.setBackground(Color.blue);
     
+    btnReset = new JButton("clear");
+    btnReset.setBounds(230, 300, 100, 30);
+    btnReset.setFont(new Font("Arial", Font.BOLD, 15));
+    btnReset.addActionListener(this);
+    btnReset.setBackground(Color.blue);
+    btnReset.setForeground(Color.WHITE);
+    
     btnreserve = new JButton("Reserve");
-    btnreserve.setBounds(290, 300, 100, 30);
+    btnreserve.setBounds(350, 300, 100, 30);
     btnreserve.setFont(new Font("Arial", Font.BOLD, 15));
     btnreserve.addActionListener(this);
     btnreserve.setBackground(Color.blue);
@@ -108,6 +115,7 @@ public class BookingReservation  extends JFrame implements ActionListener {
     add(btnreserve);
     add(btnBack);
     add(lblVehicleModel);
+    add(btnReset);
     add(lbldays);
     add(lblContactnumber);
     add(lblAddress);
@@ -118,18 +126,28 @@ public class BookingReservation  extends JFrame implements ActionListener {
     add(Reservation);
     add(txtfldname);      
     add(lblname);
-        
+    
         
     }
     @Override
     public void actionPerformed(ActionEvent e){
-         dispose ();
+         
             if(e.getSource() == btnBack){
             ChooseServices cs = new ChooseServices();
             cs.setVisible(true);
     }
- 
+   else if(e.getSource() == btnReset){
+            
+            txtfldVehicleModel.setText("");
+            txtflddays.setText("");
+            txtfldContactnumber.setText("");
+            
+            txtfldAddress.setText("");
+            txtfldname.setText("");
+            
+          
            
         }
     }   
+}
     
