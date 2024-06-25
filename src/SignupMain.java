@@ -21,6 +21,7 @@ public class SignupMain {
               @Override
               public void run() {
                   SignUp sign=new SignUp();
+                  sign.setVisible(true);
                   
               }
 

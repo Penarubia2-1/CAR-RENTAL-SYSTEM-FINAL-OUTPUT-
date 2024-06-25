@@ -133,15 +133,14 @@ public class BookingReservation  extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
          
             if(e.getSource() == btnBack){
+                dispose();
             ChooseServices cs = new ChooseServices();
             cs.setVisible(true);
     }
-   else if(e.getSource() == btnReset){
-            
+   else if(e.getSource() == btnReset){     
             txtfldVehicleModel.setText("");
             txtflddays.setText("");
             txtfldContactnumber.setText("");
-            
             txtfldAddress.setText("");
             txtfldname.setText("");
             

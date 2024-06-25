@@ -4,118 +4,155 @@
  * and open the template in the editor.
  */
 
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 
 public class SignUp  extends JFrame implements  ActionListener {
-    private JFrame frame = new JFrame("SignUp");
-    private JLabel lblSignUp,lblEmail,lblAge,lblPhone,lblAddress,lblPostalcode,lblConfirmPassword,lblPassword;
-    
+    private JLabel lblSignUp,lblEmail,lblAge,lblPhone,lblAddress,lblPostalcode,lblConfirmPassword,lblPassword,bg;
     private JTextField txtfldEmail = new JTextField();
-      private JTextField txtfldAge = new JTextField();
+    private JTextField txtfldAge = new JTextField();
     private JTextField txtfldPhone = new JTextField();
     private JTextField txtfldAddress = new JTextField();
     private JTextField txtfldPostalcode = new JTextField();
     private JPasswordField psswrdfldConfirmPassword =  new JPasswordField();
     private JPasswordField psswrdfldPassword =  new JPasswordField();
-    private JButton btnSignUp;
+    private JButton btnSignUp,btnclear,btnback;
     
 SignUp(){
-    frame.setSize(500,350);
-    frame.setLayout(null);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setSize(800,600);
+    setLayout(null);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    getContentPane().setBackground(Color.black);
     
-     lblSignUp = new JLabel("SignUp");
-     lblSignUp.setBounds(160,10,200,50);
-     lblSignUp.setFont(new Font("Arial", Font.BOLD, 30));
-     
-     lblAge = new JLabel("Age");
-     lblAge.setBounds(230 ,60, 100 ,20);
-     lblAge.setFont(new Font("Arial", Font.BOLD, 20));
-     
-     lblEmail = new JLabel("Email");
-     lblEmail.setBounds(30 ,60 ,100 , 20 );
-     lblEmail.setFont(new Font("Arial", Font.BOLD, 20));
-     
-     lblPhone = new JLabel("Phone");
-     lblPhone.setBounds(320,60,100,20);
-     lblPhone.setFont(new Font("Arial", Font.BOLD, 20));
-     
-     lblPostalcode = new JLabel("Postalcode");
-     lblPostalcode.setBounds(320,130,200,20);
-     lblPostalcode.setFont(new Font("Arial", Font.BOLD, 20));
-     
-     lblAddress = new JLabel("Address");
-     lblAddress.setBounds(30,130,100,20);
-     lblAddress.setFont(new Font("Arial", Font.BOLD, 20));
-     
-     lblPassword = new JLabel("Password");
-     lblPassword.setBounds(30,200,100,20);
-     lblPassword.setFont(new Font("Arial", Font.BOLD, 20));
-     
-     lblConfirmPassword = new JLabel("ConfirmPassword");
-     lblConfirmPassword.setBounds(220,200,200,20);
-     lblConfirmPassword.setFont(new Font("Arial", Font.BOLD, 20));
-     
-     txtfldEmail.setBounds(30,90, 180 ,30);
-     txtfldEmail.setFont(new Font("Arial", Font.PLAIN, 15));
-     
-     txtfldAge.setBounds(230,90,80,30);
-     txtfldAge.setFont(new Font("Arial", Font.PLAIN, 15));
-     
-     txtfldPhone.setBounds(320,90,130,30);
-     txtfldPhone.setFont(new Font("Arial", Font.PLAIN, 15));
-     
-     txtfldAddress.setBounds(30,150,280,30);
-     txtfldAddress.setFont(new Font("Arial", Font.PLAIN, 15));
-     
-     txtfldPostalcode.setBounds(320, 150,100,30);
-     txtfldPostalcode.setFont(new Font("Arial", Font.PLAIN, 15));
-     
-     psswrdfldPassword.setBounds(30,220,180,30);
-     psswrdfldPassword.setFont(new Font("Arial", Font.PLAIN, 15));
-     
-     psswrdfldConfirmPassword.setBounds(220,220,180,30);
-     psswrdfldConfirmPassword.setFont(new Font("Arial", Font.PLAIN, 15));
-     
-     btnSignUp = new JButton("SignUp");
-     btnSignUp.setBounds(180,260,150,40);
-     btnSignUp.setFont(new Font("Arial", Font.BOLD, 20));
-     btnSignUp.addActionListener(this);
-     
-     frame.add(lblEmail);
-     frame.add(lblPhone);
-     frame.add(lblSignUp);
-     frame.add(lblAddress);
-     frame.add(lblPostalcode);
-     frame.add(lblPassword);
-     frame.add(lblConfirmPassword);
-     frame.add(lblAge);
-     frame.add(btnSignUp);
-     frame.add(txtfldEmail);
-     frame.add(txtfldAge);
-     frame.add(txtfldPhone);
-     frame.add(txtfldAddress);
-     frame.add(txtfldPostalcode);
-     frame.add(psswrdfldPassword);
-      frame.add(psswrdfldConfirmPassword);
-     
-          frame.setVisible(true);
-          frame.setResizable(false);
+      //image
+        bg = new JLabel();
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\imgsignup.png").getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH)));
+        bg.setBounds(0, 100, 800, 600);
+    
+        lblSignUp = new JLabel("Sign Up",SwingConstants.CENTER);
+        lblSignUp.setBounds(0,20,800,40);
+        lblSignUp.setFont(new Font("Arial", Font.BOLD, 30));
+        lblSignUp.setForeground(Color.white);
+
+        lblEmail = new JLabel("Email");
+        lblEmail.setBounds(50 ,80 ,100 , 30 );
+        lblEmail.setFont(new Font("Arial", Font.BOLD, 20));
+        lblEmail.setForeground(Color.white);
+
+        txtfldEmail.setBounds(110,80, 190 ,30);
+        txtfldEmail.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        lblPhone = new JLabel("Contact Number");
+        lblPhone.setBounds(320,80,160,20);
+        lblPhone.setFont(new Font("Arial", Font.BOLD, 20));
+        lblPhone.setForeground(Color.white);
+
+        txtfldPhone.setBounds(485,75,130,30);
+        txtfldPhone.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        lblAge = new JLabel("Age");
+        lblAge.setBounds(630 ,75, 100 ,30);
+        lblAge.setFont(new Font("Arial", Font.BOLD, 20));
+        lblAge.setForeground(Color.white);
+
+        txtfldAge.setBounds(670,75,80,30);
+        txtfldAge.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        lblAddress = new JLabel("Address");
+        lblAddress.setBounds(50,155,100,20);
+        lblAddress.setFont(new Font("Arial", Font.BOLD, 20));
+        lblAddress.setForeground(Color.white);
+
+        txtfldAddress.setBounds(145,150,300,30);
+        txtfldAddress.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        lblPostalcode = new JLabel("Postal Code");
+        lblPostalcode.setBounds(500,155,180,20);
+        lblPostalcode.setFont(new Font("Arial", Font.BOLD, 20));
+        lblPostalcode.setForeground(Color.white);
+
+        txtfldPostalcode.setBounds(625, 150,100,30);
+        txtfldPostalcode.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        lblPassword = new JLabel("Password");
+        lblPassword.setBounds(50,220,100,20);
+        lblPassword.setFont(new Font("Arial", Font.BOLD, 20));
+        lblPassword.setForeground(Color.white);
+
+        psswrdfldPassword.setBounds(160,220,180,30);
+        psswrdfldPassword.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        lblConfirmPassword = new JLabel("Confirm Password");
+        lblConfirmPassword.setBounds(360,220,200,20);
+        lblConfirmPassword.setFont(new Font("Arial", Font.BOLD, 20));
+        lblConfirmPassword.setForeground(Color.white);
+
+        psswrdfldConfirmPassword.setBounds(550,220,180,30);
+        psswrdfldConfirmPassword.setFont(new Font("Arial", Font.PLAIN, 15));
+
+        btnback = new JButton("BACK");
+        btnback.setBounds(130,290,150,40);
+        btnback.setFont(new Font("Arial", Font.BOLD, 20));
+        btnback.setForeground(Color.black);
+        btnback.addActionListener(this);
+        
+        btnclear = new JButton("CLEAR");
+        btnclear.setBounds(350,290,130,40);
+        btnclear.setFont(new Font("Arial", Font.BOLD, 20));
+        btnclear.setForeground(Color.black);
+        btnclear.addActionListener(this);
+        
+        btnSignUp = new JButton("SIGN UP");
+        btnSignUp.setBounds(500,290,150,40);
+        btnSignUp.setFont(new Font("Arial", Font.BOLD, 20));
+        btnSignUp.setForeground(Color.black);
+        btnSignUp.addActionListener(this);
+
+        add(lblEmail);
+        add(lblPhone);
+        add(lblSignUp);
+        add(lblAddress);
+        add(lblPostalcode);
+        add(lblPassword);
+        add(lblConfirmPassword);
+        add(lblAge);
+        add(btnSignUp);
+        add(txtfldEmail);
+        add(txtfldAge);
+        add(txtfldPhone);
+        add(txtfldAddress);
+        add(txtfldPostalcode);
+        add(psswrdfldPassword);
+        add(psswrdfldConfirmPassword);
+        add(btnback);
+        add(btnclear);
+        add(bg);
 }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == btnSignUp){
-              Login ca=new Login();
-                  ca.setVisible(true);
+            dispose();
+              Login lg=new Login();
+                  lg.setVisible(true);
+        }
+        else if(e.getSource()==btnback){
+            dispose();
+            ClientAdmin ca=new ClientAdmin();
+            ca.setVisible(true);
+        }
+        else if(e.getSource()==btnclear){
+            txtfldEmail.setText("");
+            txtfldAge.setText("");
+            txtfldPhone.setText("");
+            txtfldAddress.setText("");
+            txtfldPostalcode.setText("");
+            psswrdfldPassword.setText("");
+            psswrdfldConfirmPassword.setText("");
+            
         }
 }
 }
