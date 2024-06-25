@@ -88,6 +88,7 @@ SignUp(){
      btnSignUp = new JButton("SignUp");
      btnSignUp.setBounds(180,260,150,40);
      btnSignUp.setFont(new Font("Arial", Font.BOLD, 20));
+     btnSignUp.addActionListener(this);
      
      frame.add(lblEmail);
      frame.add(lblPhone);
@@ -106,13 +107,15 @@ SignUp(){
      frame.add(psswrdfldPassword);
       frame.add(psswrdfldConfirmPassword);
      
-     
-     frame.setVisible(true);
-     frame.setResizable(false);
+          frame.setVisible(true);
+          frame.setResizable(false);
 }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        if(e.getSource() == btnSignUp){
+              Login ca=new Login();
+                  ca.setVisible(true);
+        }
 }
 }
