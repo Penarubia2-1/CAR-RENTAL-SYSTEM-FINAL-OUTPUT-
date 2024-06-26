@@ -97,18 +97,21 @@ SignUp(){
         btnback.setBounds(130,290,150,40);
         btnback.setFont(new Font("Arial", Font.BOLD, 20));
         btnback.setForeground(Color.black);
+        btnback.setBackground(Color.orange);
         btnback.addActionListener(this);
         
         btnclear = new JButton("CLEAR");
         btnclear.setBounds(350,290,130,40);
         btnclear.setFont(new Font("Arial", Font.BOLD, 20));
         btnclear.setForeground(Color.black);
+        btnclear.setBackground(Color.orange);
         btnclear.addActionListener(this);
         
         btnSignUp = new JButton("SIGN UP");
         btnSignUp.setBounds(500,290,150,40);
         btnSignUp.setFont(new Font("Arial", Font.BOLD, 20));
         btnSignUp.setForeground(Color.black);
+        btnSignUp.setBackground(Color.orange);
         btnSignUp.addActionListener(this);
 
         add(lblEmail);
@@ -135,7 +138,19 @@ SignUp(){
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == btnSignUp){
-            dispose();
+             try {
+                int age = Integer.parseInt(txtfldAge.getText());
+                if (age < 18) {
+                    JOptionPane.showMessageDialog(this, "You must be 18 years or older to sign up.", "Age Restriction", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Proceed with sign-up logic here
+                    JOptionPane.showMessageDialog(this, "Sign up successful!");
+                    // Example: Redirect to another window or perform sign-up actions
+                }
+            } catch (NumberFormatException si) {
+                JOptionPane.showMessageDialog(this, "Invalid age format.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+              dispose();
               Login lg=new Login();
                   lg.setVisible(true);
         }

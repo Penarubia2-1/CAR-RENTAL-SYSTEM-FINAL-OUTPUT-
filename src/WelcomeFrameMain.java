@@ -10,23 +10,22 @@ import java.awt.EventQueue;
  *
  * @author lenovo
  */
-public class SignupMain {
+public class WelcomeFrameMain {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    EventQueue.invokeLater(new Runnable() {
+         EventQueue.invokeLater(new Runnable() {
               @Override
               public void run() {
-                  SignUp sign=new SignUp();
-                  sign.setVisible(true);
+                  WelcomeFrame wf=new WelcomeFrame();
+                  wf.setVisible(true);
                   
               }
+
     });
     }
     
-    }
-    
-
+}
