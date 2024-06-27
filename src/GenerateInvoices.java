@@ -1,3 +1,4 @@
+import java.awt.Color;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.*;
@@ -13,19 +14,20 @@ import java.awt.event.*;
  */
 
 public class GenerateInvoices extends JFrame implements ActionListener{
-  private JFrame f= new JFrame("Generate Rental Invoices"); 
   private JLabel lblcstmrName,lblVehicleModel,lblBaseCostPerDay,lblAdditionalCost,lblRentalDays;
   private JTextField txtfldName=new JTextField();
   private JTextField txtVModel=new JTextField();
   private JTextField txtBCPday=new JTextField();
   private JTextField txtAdd=new JTextField();
   private JTextField txtDays=new JTextField();
-  private JButton btnGenerate,btnBack;
+  private JButton btnGenerate,btnBack,btnClear;
   
   GenerateInvoices(){
-      f.setSize(600,500);
-      f.setLayout(null);
-      f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+      setTitle("Generate Rental Invoices");
+      setSize(600,500);
+      setLayout(null);
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      getContentPane().setBackground(Color.gray);
       
       //customername
       lblcstmrName= new JLabel("Customer Name");  
@@ -72,35 +74,48 @@ public class GenerateInvoices extends JFrame implements ActionListener{
       btnGenerate.setBounds(250,272,180,30);
       btnGenerate.setFont(new Font("Arial",Font.BOLD,13));
       btnGenerate.addActionListener(this);
+      btnGenerate.setBackground(Color.YELLOW);
       
       btnBack=new JButton("BACK");
       btnBack.setBounds(140,272,100,30);
       btnBack.setFont(new Font("Arial",Font.BOLD,13));
       btnBack.addActionListener(this);
       
+      btnClear=new JButton("Clear");
+      btnClear.setBounds(10,272,100,30);
+      btnClear.setFont(new Font("Arial",Font.BOLD,13));
+      btnClear.addActionListener(this);
+      
       
       //fadd
-      f.add(lblcstmrName);
-      f.add(txtfldName);
-      f.add(lblVehicleModel);
-      f.add(txtVModel);
-      f.add(lblBaseCostPerDay);
-      f.add(txtBCPday);
-      f.add(lblAdditionalCost);
-      f.add(txtAdd);
-      f.add(lblRentalDays);
-      f.add(txtDays);
-      f.add(btnGenerate);
-      f.add(btnBack);
+      add(lblcstmrName);
+      add(txtfldName);
+      add(lblVehicleModel);
+      add(txtVModel);
+      add(lblBaseCostPerDay);
+      add(txtBCPday);
+      add(lblAdditionalCost);
+      add(txtAdd);
+      add(lblRentalDays);
+      add(txtDays);
+      add(btnGenerate);
+      add(btnBack);
+      add(btnClear);
       
       
-      f.setVisible(true);
-      f.setResizable(false);
+      setVisible(true);
+      setResizable(false);
       
   }
   @Override
   public void actionPerformed(ActionEvent e){
-      
+      if(e.getSource() == btnClear){
+          txtfldName.setText("");
+          txtVModel.setText("");
+          txtBCPday.setText("");
+          txtAdd.setText("");
+          txtDays.setText("");
+      }
   }
 
    
