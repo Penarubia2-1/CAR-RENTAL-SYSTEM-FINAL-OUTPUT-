@@ -79,8 +79,8 @@ public class ClientAdmin extends JFrame implements ActionListener  {
         }
         else if(e.getSource()==btnAdmin){
             dispose();
-            Login lg=new Login();
-            lg.setVisible(true);
+                 LoginAdmin car=new LoginAdmin();
+                  car.setVisible(true);  
         }
     }
     
