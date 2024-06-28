@@ -1,3 +1,5 @@
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
+import com.sun.prism.impl.Disposer.Record;
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.Font;
@@ -13,24 +15,25 @@ import java.awt.event.*;
  * 
  */
 
-public class GenerateInvoices extends JFrame implements ActionListener{
-  private JLabel lblcstmrName,lblVehicleModel,lblBaseCostPerDay,lblAdditionalCost,lblRentalDays;
-  private JTextField txtfldName=new JTextField();
-  private JTextField txtVModel=new JTextField();
-  private JTextField txtBCPday=new JTextField();
-  private JTextField txtAdd=new JTextField();
-  private JTextField txtDays=new JTextField();
-  private JButton btnGenerate,btnBack,btnClear;
-  
-  GenerateInvoices(){
-      setTitle("Generate Rental Invoices");
-      setSize(600,500);
-      setLayout(null);
-      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      getContentPane().setBackground(Color.gray);
-      
-      //customername
-      lblcstmrName= new JLabel("Customer Name");  
+
+
+public class GenerateInvoices extends JFrame implements ActionListener {
+    private JLabel lblcstmrName, lblVehicleModel, lblBaseCostPerDay, lblAdditionalCost, lblRentalDays;
+    private JTextField txtfldName = new JTextField();
+    private JTextField txtVModel = new JTextField();
+    private JTextField txtBCPday = new JTextField();
+    private JTextField txtAdd = new JTextField();
+    private JTextField txtDays = new JTextField();
+    private JButton btnGenerate, btnBack, btnClear;
+
+    GenerateInvoices() {
+        setTitle("Generate Rental Invoices");
+        setSize(600, 500);
+        setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setBackground(Color.gray);
+
+        lblcstmrName= new JLabel("Customer Name");  
       lblcstmrName.setBounds(80,50,160,30);
       lblcstmrName.setFont(new Font("Arial Black",Font.BOLD,15));
       
@@ -54,7 +57,7 @@ public class GenerateInvoices extends JFrame implements ActionListener{
       txtBCPday.setFont(new Font("Arial",Font.PLAIN,13));
       
       //additionalcost
-      lblAdditionalCost= new JLabel("Base Cost Per Day");  
+      lblAdditionalCost= new JLabel("AdditionalCost");  
       lblAdditionalCost.setBounds(80,175,190,30);
       lblAdditionalCost.setFont(new Font("Arial Black",Font.BOLD,15));
       
@@ -101,22 +104,41 @@ public class GenerateInvoices extends JFrame implements ActionListener{
       add(btnGenerate);
       add(btnBack);
       add(btnClear);
-      
-      
-      setVisible(true);
-      setResizable(false);
-      
-  }
-  @Override
-  public void actionPerformed(ActionEvent e){
-      if(e.getSource() == btnClear){
-          txtfldName.setText("");
-          txtVModel.setText("");
-          txtBCPday.setText("");
-          txtAdd.setText("");
-          txtDays.setText("");
-      }
-  }
+        // ... (all your existing GUI setup code)
 
-   
+        setVisible(true);
+        setResizable(false);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnClear) {
+            clearFields();
+        } else if (e.getSource() == btnGenerate) {
+            String name = txtfldName.getText();
+            String vModel = txtVModel.getText();
+            String bcpDay = txtBCPday.getText();
+            String add = txtAdd.getText();
+            String days = txtDays.getText();
+
+            // Create new InvoiceDisplay frame with entered data
+            new InvoiceDisplay(name, vModel, bcpDay, add, days);
+            
+            clearFields(); // Optional: Clear fields after generating invoice
+        }
+    }
+
+    private void clearFields() {
+        txtfldName.setText("");
+        txtVModel.setText("");
+        txtBCPday.setText("");
+        txtAdd.setText("");
+        txtDays.setText("");
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new GenerateInvoices();
+        });
+    }
 }
