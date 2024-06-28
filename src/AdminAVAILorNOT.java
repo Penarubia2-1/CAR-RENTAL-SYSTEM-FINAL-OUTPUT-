@@ -10,16 +10,16 @@
 import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.*;
-public class Admin extends JFrame implements ActionListener {
+public class AdminAVAILorNOT extends JFrame implements ActionListener {
     JLabel lblHiAdmin;
     JButton btnexit,btnAdd,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btnclient;
-    Admin(){
-        setTitle("Hi Admin!");
+    AdminAVAILorNOT(){
+        setTitle("Customize Car if Available or Not");
         setSize(1000,700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         
-        lblHiAdmin = new JLabel("Welcome, Admin! Check for Clients",SwingConstants.CENTER);
+        lblHiAdmin = new JLabel("Welcome, Admin!You are now Changes of Available Car",SwingConstants.CENTER);
         lblHiAdmin.setBounds(0, 5, 1000, 80);
         lblHiAdmin.setFont(new Font("Arial", Font.BOLD, 15));
         
@@ -58,8 +58,9 @@ public class Admin extends JFrame implements ActionListener {
         btnAdd.addActionListener(this);
         btnDelete.addActionListener(this);
         btnUpdate.addActionListener(this);
+        btnclient.addActionListener(this);
         btnRESERVATIONS.addActionListener(this);
-        btnAVAILorNOT.addActionListener(this);
+
     }
 
     @Override
@@ -74,8 +75,8 @@ public class Admin extends JFrame implements ActionListener {
             AdminReservationUI ar =new AdminReservationUI();
             ar.setVisible(true);
         }
-         else if(e.getSource()==btnAVAILorNOT){
-            AdminAVAILorNOT ar =new AdminAVAILorNOT();
+         else if(e.getSource()==btnclient){
+            Admin ar =new Admin();
             ar.setVisible(true);
         }
     }
