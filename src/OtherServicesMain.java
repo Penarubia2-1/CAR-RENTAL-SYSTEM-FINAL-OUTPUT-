@@ -8,23 +8,23 @@ import java.awt.EventQueue;
 
 /**
  *
- * @author 639319165346
+ * @author lenovo
  */
-public class LoginAdminMain {
+public class OtherServicesMain {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-          EventQueue.invokeLater(new Runnable() {
-              @Override
-              public void run() {
-                  LoginAdmin la=new LoginAdmin();
-                  la.setVisible(true);
-              }
-
-    });
+         EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                OtherServices av = new OtherServices();
+                av.setVisible(true);         
+            }
+            
+         });
     }
     
 }

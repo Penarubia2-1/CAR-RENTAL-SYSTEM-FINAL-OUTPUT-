@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.event.*;
 public class AdminReservationUI extends JFrame implements ActionListener {
     JLabel lblHiAdmin;
-    JButton btnexit,btnAdd,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btnclient;
+    JButton btnexit,btnAdd,btnedit,btnDelete,btnUpdate,btngenerate,btnRESERVATIONS,btnAVAILorNOT,btnclient;
     AdminReservationUI(){
         setTitle("Hi Admin!");
         setSize(1000,700);
@@ -32,17 +32,23 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         btnAVAILorNOT=new JButton("CHANGES OF CAR");
         btnAVAILorNOT.setBounds(380,60,190,30);
         
-        btnexit=new JButton("LOG OUT");
-        btnexit.setBounds(700,600,120,40);
-       
         btnAdd = new JButton("ADD");
-        btnAdd.setBounds(200, 600, 80, 40);
-
+        btnAdd.setBounds(100, 600, 80, 40);
+        
+        btnedit = new JButton("EDIT");
+        btnedit.setBounds(200, 600, 80, 40);
+        
         btnDelete = new JButton("DELETE");
-        btnDelete.setBounds(350, 600, 100, 40);
+        btnDelete.setBounds(300, 600, 100, 40);
 
         btnUpdate = new JButton("UPDATE");
-        btnUpdate.setBounds(500, 600, 100, 40);
+        btnUpdate.setBounds(420, 600, 100, 40);
+        
+        btngenerate = new JButton("GENERATE INVOICE");
+        btngenerate.setBounds(600, 600, 190, 40);
+       
+        btnexit=new JButton("LOG OUT");
+        btnexit.setBounds(810,600,120,40);
         
         //add
         add(lblHiAdmin);
@@ -50,7 +56,9 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         add(btnRESERVATIONS);
         add(btnAVAILorNOT);
         add(btnexit);
+        add(btngenerate);
         add(btnAdd);
+        add(btnedit);
         add(btnDelete);
         add(btnUpdate);
         //add
@@ -60,6 +68,7 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         btnUpdate.addActionListener(this);
         btnclient.addActionListener(this);
         btnAVAILorNOT.addActionListener(this);
+        btngenerate.addActionListener(this);
 
     }
 
@@ -68,8 +77,8 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         dispose();
         if(e.getSource()==btnexit){
             
-            ClientAdmin ca=new ClientAdmin();
-            ca.setVisible(true);
+            WelcomeFrame wf=new WelcomeFrame();
+            wf.setVisible(true);
         }
         else if(e.getSource()==btnAVAILorNOT){
             AdminAVAILorNOT ar =new AdminAVAILorNOT();
@@ -78,6 +87,10 @@ public class AdminReservationUI extends JFrame implements ActionListener {
          else if(e.getSource()==btnclient){
             Admin ar =new Admin();
             ar.setVisible(true);
+        }
+         else if(e.getSource()==btngenerate){
+            GenerateInvoices gi =new GenerateInvoices();
+            gi.setVisible(true);
         }
     }
 

@@ -27,7 +27,7 @@ public class SUVCar extends JFrame implements ActionListener{
         private JLabel lblSUVCar,lblCherttiggo,lblMustang, lblRover, lblGeely,lblWagon,lblPrice,lblJetour, lblSuzukiJimny, lblKia,lblFoton,lblHyundai,suv;
         private JTextField txtfldChoose= new JTextField();
         private JLabel lblCarID,lblCarID006,lblCarID007,lblCarID008,lblCarID009,lblCarID010;
-        private JButton btnnext,btnback;
+        private JButton btnnext,btnback,btnlogout;
      SUVCar(){
            setTitle("SUV Car");
            setSize(800,600);
@@ -76,34 +76,34 @@ public class SUVCar extends JFrame implements ActionListener{
 
 
        //price
-        lblPrice=new JLabel("Price");
-        lblPrice.setBounds(490,75,290,30);
+        lblPrice=new JLabel("Status");
+        lblPrice.setBounds(500,75,290,30);
         lblPrice.setFont(new Font("Arial",Font.BOLD,17));
         lblPrice.setForeground(Color.white);
 
 
-        lblJetour = new JLabel("10,000");
+        lblJetour = new JLabel("AVAILABLE");
         lblJetour.setBounds(490, 100, 120, 30);
         lblJetour.setFont(new Font("Arial", Font.PLAIN, 17));
         lblJetour.setForeground(Color.white);
 
         
-        lblSuzukiJimny = new JLabel("10,000");
+        lblSuzukiJimny = new JLabel("AVAILABLE");
         lblSuzukiJimny.setBounds(490, 140, 120, 30);
         lblSuzukiJimny.setFont(new Font("Arial", Font.PLAIN, 17));
         lblSuzukiJimny.setForeground(Color.white);
 
-        lblKia = new JLabel("10,000");
+        lblKia = new JLabel("AVAILABLE");
         lblKia.setBounds(490, 180, 120, 30);
         lblKia.setFont(new Font("Arial", Font.PLAIN, 17));
         lblKia.setForeground(Color.white);
 
-        lblFoton = new JLabel("10,000");
+        lblFoton = new JLabel("AVAILABLE");
         lblFoton.setBounds(490, 220, 120, 30);
         lblFoton.setFont(new Font("Arial", Font.PLAIN, 17));
         lblFoton.setForeground(Color.white);
 
-        lblGeely = new JLabel("10,000");
+        lblGeely = new JLabel("AVAILABLE");
         lblGeely.setBounds(490, 260, 120, 30);
         lblGeely.setFont(new Font("Arial", Font.PLAIN, 17));
         lblGeely.setForeground(Color.white);
@@ -140,19 +140,27 @@ public class SUVCar extends JFrame implements ActionListener{
         lblCarID010.setFont(new Font("Arial Black", Font.BOLD, 15));
         lblCarID010.setForeground(Color.white);
 
+        //btn
         btnback = new JButton("BACK");
-        btnback.setBounds(270, 360, 100, 30);
+        btnback.setBounds(200, 360, 100, 30);
         btnback.setFont(new Font("Arial", Font.BOLD, 15));
         btnback.setForeground(Color.black);
+        btnback.setBackground(Color.orange);
         btnback.addActionListener(this);
 
-
         btnnext = new JButton("NEXT");
-        btnnext.setBounds(420, 360, 100, 30);
+        btnnext.setBounds(320, 360, 100, 30);
         btnnext.setFont(new Font("Arial", Font.BOLD, 15));
         btnnext.setForeground(Color.black);
+        btnnext.setBackground(Color.orange);
         btnnext.addActionListener(this);
-
+        
+        btnlogout = new JButton("LOG OUT");
+        btnlogout.setBounds(520, 360, 130, 30);
+        btnlogout.setFont(new Font("Arial", Font.BOLD, 15));
+        btnlogout.setForeground(Color.black);
+        btnlogout.setBackground(Color.orange);
+        btnlogout.addActionListener(this);
         //add
         add(lblSUVCar);
         add(lblCherttiggo);
@@ -174,9 +182,9 @@ public class SUVCar extends JFrame implements ActionListener{
         add(lblCarID010);
         add(btnnext);
         add(btnback);
+        add(btnlogout);
         add(suv);
 
-        setVisible(true);
     }
          @Override
          public void actionPerformed(ActionEvent e){
@@ -184,12 +192,17 @@ public class SUVCar extends JFrame implements ActionListener{
         if(e.getSource() == btnback){
                 availablevehicles av = new availablevehicles();
                 av.setVisible(true);
-    }
+        }
          else if(e.getSource() == btnnext){
-                GenerateInvoices gi = new GenerateInvoices();
-                gi.setVisible(true);
+                BookingReservation br = new BookingReservation();
+                br.setVisible(true);
 
         }
+         else if(e.getSource() == btnlogout){
+            WelcomeFrame wf = new WelcomeFrame();
+            wf.setVisible(true);
+
+    }
 
          }
     }

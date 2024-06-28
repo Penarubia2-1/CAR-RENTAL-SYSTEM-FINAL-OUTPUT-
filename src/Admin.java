@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.event.*;
 public class Admin extends JFrame implements ActionListener {
     JLabel lblHiAdmin;
-    JButton btnexit,btnAdd,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btnclient;
+    JButton btnexit,btnAdd,btnedit,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btnclient;
     Admin(){
         setTitle("Hi Admin!");
         setSize(1000,700);
@@ -31,25 +31,28 @@ public class Admin extends JFrame implements ActionListener {
         
         btnAVAILorNOT=new JButton("CHANGES OF CAR");
         btnAVAILorNOT.setBounds(380,60,190,30);
-        
-        btnexit=new JButton("LOG OUT");
-        btnexit.setBounds(700,600,120,40);
-       
+         
         btnAdd = new JButton("ADD");
-        btnAdd.setBounds(200, 600, 80, 40);
-
+        btnAdd.setBounds(100, 600, 80, 40);
+        
+        btnedit = new JButton("EDIT");
+        btnedit.setBounds(230, 600, 80, 40);
+        
         btnDelete = new JButton("DELETE");
-        btnDelete.setBounds(350, 600, 100, 40);
+        btnDelete.setBounds(360, 600, 100, 40);
 
         btnUpdate = new JButton("UPDATE");
-        btnUpdate.setBounds(500, 600, 100, 40);
-        
+        btnUpdate.setBounds(490, 600, 100, 40);
+       
+        btnexit=new JButton("LOG OUT");
+        btnexit.setBounds(700,600,120,40);
         //add
         add(lblHiAdmin);
         add(btnclient);
         add(btnRESERVATIONS);
         add(btnAVAILorNOT);
         add(btnexit);
+        add(btnedit);
         add(btnAdd);
         add(btnDelete);
         add(btnUpdate);
@@ -67,8 +70,8 @@ public class Admin extends JFrame implements ActionListener {
         dispose();
         if(e.getSource()==btnexit){
             
-            ClientAdmin ca=new ClientAdmin();
-            ca.setVisible(true);
+            WelcomeFrame wf=new WelcomeFrame();
+            wf.setVisible(true);
         }
         else if(e.getSource()==btnRESERVATIONS){
             AdminReservationUI ar =new AdminReservationUI();

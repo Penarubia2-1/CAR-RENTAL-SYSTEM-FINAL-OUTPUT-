@@ -15,7 +15,7 @@ import javax.swing.*;
 public class PickupCar extends JFrame implements ActionListener{
      private JLabel lblAvailablePickup, lblRanger, lblToyota, lblIsuzuD,lblNavarra,lblfoton,lblPrice,lblPRanger,lblPToyota, lblPIsuzuD,lblPNavarra,lblPfoton,pickup;
       private JLabel lblCarID,lblCarID021,lblCarID022,lblCarID023,lblCarID024,lblCarID025;
-     private JButton btnback, btnnext;
+     private JButton btnback, btnnext,btnlogout;
      PickupCar(){
         setSize(800,600);
         setLayout(null);
@@ -58,32 +58,32 @@ public class PickupCar extends JFrame implements ActionListener{
         lblfoton.setForeground(Color.white);
 
         //pricelist
-        lblPrice=new JLabel("Price");
-        lblPrice.setBounds(510,75,290,30);
+        lblPrice=new JLabel("Status");
+        lblPrice.setBounds(520,75,290,30);
         lblPrice.setFont(new Font("Arial",Font.BOLD,17));
         lblPrice.setForeground(Color.white);
 
-        lblPRanger = new JLabel("10,000");
+        lblPRanger = new JLabel("AVAILABLE");
         lblPRanger.setBounds(510, 100, 120, 30);
         lblPRanger.setFont(new Font("Arial", Font.PLAIN, 17));
         lblPRanger.setForeground(Color.white);
 
-        lblPToyota = new JLabel("10,000");
+        lblPToyota = new JLabel("AVAILABLE");
         lblPToyota.setBounds(510, 140, 120, 30);
         lblPToyota.setFont(new Font("Arial", Font.PLAIN, 17));
         lblPToyota.setForeground(Color.white);
 
-        lblPIsuzuD = new JLabel("10,000");
+        lblPIsuzuD = new JLabel("AVAILABLE");
         lblPIsuzuD.setBounds(510, 180, 120, 30);
         lblPIsuzuD.setFont(new Font("Arial", Font.PLAIN, 17));
         lblPIsuzuD.setForeground(Color.white);
 
-        lblPNavarra = new JLabel("10,000");
+        lblPNavarra = new JLabel("AVAILABLE");
         lblPNavarra.setBounds(510, 220, 120, 30);
         lblPNavarra.setFont(new Font("Arial", Font.PLAIN, 17));
         lblPNavarra.setForeground(Color.white);
 
-        lblPfoton = new JLabel("10,000");
+        lblPfoton = new JLabel("AVAILABLE");
         lblPfoton.setBounds(510, 260, 120, 30);
         lblPfoton.setFont(new Font("Arial", Font.PLAIN, 17));
         lblPfoton.setForeground(Color.white);
@@ -121,17 +121,25 @@ public class PickupCar extends JFrame implements ActionListener{
 
         //btn
         btnback = new JButton("BACK");
-        btnback.setBounds(270, 360, 100, 30);
+        btnback.setBounds(200, 360, 100, 30);
         btnback.setFont(new Font("Arial", Font.BOLD, 15));
         btnback.setForeground(Color.black);
+        btnback.setBackground(Color.orange);
         btnback.addActionListener(this);
 
         btnnext = new JButton("NEXT");
-        btnnext.setBounds(420, 360, 100, 30);
+        btnnext.setBounds(320, 360, 100, 30);
         btnnext.setFont(new Font("Arial", Font.BOLD, 15));
         btnnext.setForeground(Color.black);
+        btnnext.setBackground(Color.orange);
         btnnext.addActionListener(this);
-
+        
+        btnlogout = new JButton("LOG OUT");
+        btnlogout.setBounds(520, 360, 130, 30);
+        btnlogout.setFont(new Font("Arial", Font.BOLD, 15));
+        btnlogout.setForeground(Color.black);
+        btnlogout.setBackground(Color.orange);
+        btnlogout.addActionListener(this);
 
         //add
         add(lblAvailablePickup);
@@ -154,6 +162,7 @@ public class PickupCar extends JFrame implements ActionListener{
         add(lblCarID025);
         add(btnnext);
         add(btnback);
+        add(btnlogout);
         add(pickup);
 
      } 
@@ -163,11 +172,15 @@ public class PickupCar extends JFrame implements ActionListener{
             if(e.getSource() == btnback){
             availablevehicles av = new availablevehicles();
             av.setVisible(true);
-            }
-             else if(e.getSource() == btnnext){
-            GenerateInvoices gi = new GenerateInvoices();
-            gi.setVisible(true);
-        
+        }
+            else if(e.getSource() == btnnext){
+            BookingReservation br = new BookingReservation();
+            br.setVisible(true);
+        }
+             else if(e.getSource() == btnlogout){
+            WelcomeFrame wf = new WelcomeFrame();
+            wf.setVisible(true);
+
     }
      }
 }

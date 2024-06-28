@@ -32,6 +32,7 @@ public class LoginAdmin extends JFrame implements ActionListener{
     private JButton btnLogin,btnback;
     
     LoginAdmin(){
+     setTitle("Log In As Admin");
      setSize(800,600);
      setLayout(null);
      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,47 +77,29 @@ public class LoginAdmin extends JFrame implements ActionListener{
      btnback.setForeground(Color.black);
      btnback.addActionListener(this);
      
-   
-
-   
-     
-     
      add(lblEmail);
      add(lblPassword);
      add(txtfldEmail);
      add(psswrdfldPassword);
      add(btnLogin);
-    
      add(lblLogin);
- 
      add(btnback);
      add(bg);
          
-     
-     
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        dispose();
-         
-
-     
             if (e.getSource()==btnLogin){
-     
             String Email = txtfldEmail.getText();
             String Password = new String(psswrdfldPassword.getPassword());
-             JOptionPane.showMessageDialog(this, "Login successful!");
-           
+            JOptionPane.showMessageDialog(this, "Login successful!");
+            dispose();
             AdminAVAILorNOT ad=new AdminAVAILorNOT();
-            ad.setVisible(true);
-            
-            
-                           
-        
-               
+            ad.setVisible(true);   
         }
-        else if(e.getSource()==btnback){
+            else if(e.getSource()==btnback){
+            dispose();
             ClientAdmin  ca=new ClientAdmin();
             ca.setVisible(true);
             

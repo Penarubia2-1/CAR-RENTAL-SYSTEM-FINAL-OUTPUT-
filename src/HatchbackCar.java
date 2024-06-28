@@ -15,7 +15,7 @@ import javax.swing.*;
 public class HatchbackCar extends JFrame implements ActionListener{
      private JLabel lblAvailableHatchBack, lblMazda2,lblBYD, lblMazda3, lblBrio,lblToyota,lblPrice,lblPMazda2, lblPBYD, lblPMazda3,lblPBrio,lblPtoyota,hatchback;
      private JLabel lblCarID,lblCarID016,lblCarID017,lblCarID018,lblCarID019,lblCarID020;
-     private JButton btnback, btnnext;
+     private JButton btnback, btnnext,btnlogout;
      HatchbackCar(){
         setTitle("Hatchback Car");
         setSize(800,600);
@@ -60,32 +60,32 @@ public class HatchbackCar extends JFrame implements ActionListener{
        lblToyota.setForeground(Color.white);
 
        //pricelist
-       lblPrice=new JLabel("Price");
-       lblPrice.setBounds(490,75,290,30);
+       lblPrice=new JLabel("Status");
+       lblPrice.setBounds(500,75,290,30);
        lblPrice.setFont(new Font("Arial",Font.BOLD,17));
        lblPrice.setForeground(Color.white);
 
-       lblPMazda2 = new JLabel("10,000");
+       lblPMazda2 = new JLabel("AVAILABLE");
        lblPMazda2.setBounds(490, 100, 120, 30);
        lblPMazda2.setFont(new Font("Arial", Font.PLAIN, 17));
        lblPMazda2.setForeground(Color.white);
 
-       lblPBYD = new JLabel("10,000");
+       lblPBYD = new JLabel("AVAILABLE");
        lblPBYD.setBounds(490, 140, 120, 30);
        lblPBYD.setFont(new Font("Arial", Font.PLAIN, 17));
        lblPBYD.setForeground(Color.white);
 
-       lblPMazda3 = new JLabel("10,000");
+       lblPMazda3 = new JLabel("AVAILABLE");
        lblPMazda3.setBounds(490, 180, 120, 30);
        lblPMazda3.setFont(new Font("Arial", Font.PLAIN, 17));
        lblPMazda3.setForeground(Color.white);
 
-       lblPBrio = new JLabel("10,000");
+       lblPBrio = new JLabel("AVAILABLE");
        lblPBrio.setBounds(490, 220, 120, 30);
        lblPBrio.setFont(new Font("Arial", Font.PLAIN, 17));
        lblPBrio.setForeground(Color.white);
 
-       lblPtoyota = new JLabel("10,000");
+       lblPtoyota = new JLabel("AVAILABLE");
        lblPtoyota.setBounds(490, 260, 120, 30);
        lblPtoyota.setFont(new Font("Arial", Font.PLAIN, 17));
        lblPtoyota.setForeground(Color.white);
@@ -123,16 +123,25 @@ public class HatchbackCar extends JFrame implements ActionListener{
 
        //btn
         btnback = new JButton("BACK");
-        btnback.setBounds(270, 360, 100, 30);
+        btnback.setBounds(200, 360, 100, 30);
         btnback.setFont(new Font("Arial", Font.BOLD, 15));
         btnback.setForeground(Color.black);
+        btnback.setBackground(Color.orange);
         btnback.addActionListener(this);
 
         btnnext = new JButton("NEXT");
-        btnnext.setBounds(420, 360, 100, 30);
+        btnnext.setBounds(320, 360, 100, 30);
         btnnext.setFont(new Font("Arial", Font.BOLD, 15));
         btnnext.setForeground(Color.black);
+        btnnext.setBackground(Color.orange);
         btnnext.addActionListener(this);
+        
+        btnlogout = new JButton("LOG OUT");
+        btnlogout.setBounds(520, 360, 130, 30);
+        btnlogout.setFont(new Font("Arial", Font.BOLD, 15));
+        btnlogout.setForeground(Color.black);
+        btnlogout.setBackground(Color.orange);
+        btnlogout.addActionListener(this);
 
 
        //add
@@ -156,21 +165,25 @@ public class HatchbackCar extends JFrame implements ActionListener{
        add(lblCarID020);
        add(btnnext);
        add(btnback);
+       add(btnlogout);
        add(hatchback);
 
    }
         @Override
         public void actionPerformed(ActionEvent e){
-
         dispose ();
-               if(e.getSource() == btnback){
-               availablevehicles av = new availablevehicles();
-               av.setVisible(true);
-               }
-                else if(e.getSource() == btnnext){
-               GenerateInvoices gi = new GenerateInvoices();
-               gi.setVisible(true);
+            if(e.getSource() == btnback){
+            availablevehicles av = new availablevehicles();
+            av.setVisible(true);
+        }
+            else if(e.getSource() == btnnext){
+            BookingReservation br = new BookingReservation();
+            br.setVisible(true);
+        }
+            else if(e.getSource() == btnlogout){
+            WelcomeFrame wf = new WelcomeFrame();
+            wf.setVisible(true);
 
-       }
+    }
         }
    }

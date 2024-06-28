@@ -15,7 +15,7 @@ import javax.swing.*;
 public class VanCar extends JFrame implements ActionListener{
      private JLabel lblAvailableVanCar, lblMiniMPV,lblMiniVan, lblBoxVan, lblMicroVan,lblPanelVan,lblpricelist,lblPMPV, lblPMini, lblPBox,lblPMicro,lblPPanel,van;
      private JLabel lblCarID,lblCarID011,lblCarID012,lblCarID013,lblCarID014,lblCarID015;
-     private JButton btnback, btnnext;
+     private JButton btnback, btnnext,btnlogout;
      VanCar(){
         setTitle("Van Car");
         setSize(800,600);
@@ -61,32 +61,32 @@ public class VanCar extends JFrame implements ActionListener{
         lblPanelVan.setForeground(Color.white);
 
         //pricelist
-        lblpricelist= new JLabel ("Price");
-        lblpricelist.setBounds(490,75,290,30);
+        lblpricelist= new JLabel ("Status");
+        lblpricelist.setBounds(500,75,290,30);
         lblpricelist.setFont(new Font("Arial",Font.BOLD,17));
         lblpricelist.setForeground(Color.white);
 
-        lblPMPV = new JLabel("10,000");
+        lblPMPV = new JLabel("AVAILABLE");
         lblPMPV.setBounds(490, 100, 120, 30);
         lblPMPV.setFont(new Font("Arial", Font.PLAIN, 17));
         lblPMPV.setForeground(Color.white);
 
-        lblPMini = new JLabel("10,000");
+        lblPMini = new JLabel("AVAILABLE");
         lblPMini.setBounds(490, 140, 120, 30);
         lblPMini.setFont(new Font("Arial", Font.PLAIN, 17));
         lblPMini.setForeground(Color.white);
 
-        lblPBox = new JLabel("10,000");
+        lblPBox = new JLabel("AVAILABLE");
         lblPBox.setBounds(490, 180, 120, 30);
         lblPBox.setFont(new Font("Arial", Font.PLAIN, 17));
         lblPBox.setForeground(Color.white);
 
-        lblPMicro = new JLabel("10,000");
+        lblPMicro = new JLabel("AVAILABLE");
         lblPMicro.setBounds(490, 220, 120, 30);
         lblPMicro.setFont(new Font("Arial", Font.PLAIN, 17));
         lblPMicro.setForeground(Color.white);
 
-        lblPPanel = new JLabel("10,000");
+        lblPPanel = new JLabel("AVAILABLE");
         lblPPanel.setBounds(490, 260, 120, 30);
         lblPPanel.setFont(new Font("Arial", Font.PLAIN, 17));
         lblPPanel.setForeground(Color.white);
@@ -125,17 +125,25 @@ public class VanCar extends JFrame implements ActionListener{
 
         //btn
         btnback = new JButton("BACK");
-        btnback.setBounds(270, 360, 100, 30);
+        btnback.setBounds(200, 360, 100, 30);
         btnback.setFont(new Font("Arial", Font.BOLD, 15));
         btnback.setForeground(Color.black);
+        btnback.setBackground(Color.orange);
         btnback.addActionListener(this);
 
         btnnext = new JButton("NEXT");
-        btnnext.setBounds(420, 360, 100, 30);
+        btnnext.setBounds(320, 360, 100, 30);
         btnnext.setFont(new Font("Arial", Font.BOLD, 15));
         btnnext.setForeground(Color.black);
+        btnnext.setBackground(Color.orange);
         btnnext.addActionListener(this);
-
+        
+        btnlogout = new JButton("LOG OUT");
+        btnlogout.setBounds(520, 360, 130, 30);
+        btnlogout.setFont(new Font("Arial", Font.BOLD, 15));
+        btnlogout.setForeground(Color.black);
+        btnlogout.setBackground(Color.orange);
+        btnlogout.addActionListener(this);
 
         //add
         add(lblAvailableVanCar);
@@ -158,6 +166,7 @@ public class VanCar extends JFrame implements ActionListener{
         add(lblCarID015);
         add(btnnext);
         add(btnback);
+        add(btnlogout);
         add(van);
     
     
@@ -169,11 +178,15 @@ public class VanCar extends JFrame implements ActionListener{
             if(e.getSource() == btnback){
             availablevehicles av = new availablevehicles();
             av.setVisible(true);
-    }
-             else if(e.getSource() == btnnext){
-            GenerateInvoices gi = new GenerateInvoices();
-            gi.setVisible(true);
-        
+          }
+            else if(e.getSource() == btnnext){
+            BookingReservation br = new BookingReservation();
+            br.setVisible(true);
+          }
+            else if(e.getSource() == btnlogout){
+            WelcomeFrame wf = new WelcomeFrame();
+            wf.setVisible(true);
+
     }
       
      }

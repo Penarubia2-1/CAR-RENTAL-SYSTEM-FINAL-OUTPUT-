@@ -1,5 +1,4 @@
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
-import com.sun.prism.impl.Disposer.Record;
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.Font;

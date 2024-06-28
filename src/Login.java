@@ -17,6 +17,7 @@ public class Login extends JFrame implements ActionListener{
     private JButton btnLogin,btnCreate,btnback;
     
     Login(){
+     setTitle("Log in As Client");
      setSize(800,600);
      setLayout(null);
      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,27 +93,22 @@ public class Login extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        dispose();
-         
-
         if(e.getSource()==btnCreate){
+            dispose();
             SignUp su=new SignUp();
             su.setVisible(true);
         }
             else if (e.getSource()==btnLogin){
-     
             String Email = txtfldEmail.getText();
             String Password = new String(psswrdfldPassword.getPassword());
-             JOptionPane.showMessageDialog(this, "Login successful!");
-
+            JOptionPane.showMessageDialog(this, "Login successful!");
+            dispose();
             ChooseServices cs = new ChooseServices();
-                cs.setVisible(true); 
-                
-        
-        
-               
+            cs.setVisible(true); 
+            
         }
         else if(e.getSource()==btnback){
+            dispose();
             ClientAdmin  ca=new ClientAdmin();
             ca.setVisible(true);
             

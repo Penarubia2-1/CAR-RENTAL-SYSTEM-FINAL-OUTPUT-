@@ -15,7 +15,7 @@ import javax.swing.*;
 public class MuscleCar extends JFrame implements ActionListener{
      private JLabel lblAvailableMuscleCar, lblChevrolet,lblMustang, lblFord, lblChallenger,lblDodge,lblprice,lblPChevrolet, lblPMustang, lblPFord,lblPChallenger,lblPDodge,muscle;
      private JLabel lblCarID,lblCarID001,lblCarID002,lblCarID003,lblCarID004,lblCarID005;
-     private JButton btnnext,btnback;
+     private JButton btnnext,btnback,btnlogout;
      MuscleCar(){
         setTitle("Muscle Car");
         setSize(800,600);
@@ -67,52 +67,52 @@ public class MuscleCar extends JFrame implements ActionListener{
 
 
        //pricelist 
-        lblprice=new JLabel("Price");
-        lblprice.setBounds(490,75,290,30);
+        lblprice=new JLabel("Status");
+        lblprice.setBounds(500,75,290,30);
         lblprice.setFont(new Font("Arial Black", Font.PLAIN,17));
         lblprice.setForeground(Color.white);
 
 
-        lblPChevrolet = new JLabel("10,000");
+        lblPChevrolet = new JLabel("AVAILABLE");
         lblPChevrolet.setBounds(490, 100, 120, 30);
         lblPChevrolet.setFont(new Font("Arial", Font.PLAIN, 17));
         lblPChevrolet.setForeground(Color.white);
 
 
-        lblPMustang = new JLabel("10,000");
+        lblPMustang = new JLabel("AVAILABLE");
         lblPMustang.setBounds(490, 140, 120, 30);
         lblPMustang.setFont(new Font("Arial", Font.PLAIN, 17));
-                lblPMustang.setForeground(Color.white);
+        lblPMustang.setForeground(Color.white);
 
 
-        lblPFord = new JLabel("10,000");
+        lblPFord = new JLabel("AVAILABLE");
         lblPFord.setBounds(490, 180, 120, 30);
         lblPFord.setFont(new Font("Arial", Font.PLAIN, 17));
-                lblPFord.setForeground(Color.white);
+        lblPFord.setForeground(Color.white);
 
 
-        lblPChallenger = new JLabel("10,000");
+        lblPChallenger = new JLabel("AVAILABLE");
         lblPChallenger.setBounds(490, 220, 120, 30);
         lblPChallenger.setFont(new Font("Arial", Font.PLAIN, 17));
-                lblPChallenger.setForeground(Color.white);
+        lblPChallenger.setForeground(Color.white);
 
 
-        lblPDodge = new JLabel("10,000");
+        lblPDodge = new JLabel("AVAILABLE");
         lblPDodge.setBounds(490, 260, 120, 30);
         lblPDodge.setFont(new Font("Arial", Font.PLAIN, 17));
-                lblPDodge.setForeground(Color.white);
+        lblPDodge.setForeground(Color.white);
 
         //carID
         lblCarID = new JLabel("CAR ID");
         lblCarID.setBounds(260, 80, 80, 20);
         lblCarID.setFont(new Font("Arial Black", Font.BOLD, 15));
-                lblCarID.setForeground(Color.white);
+        lblCarID.setForeground(Color.white);
 
 
         lblCarID001 = new JLabel("001");
         lblCarID001.setBounds(274, 104, 60, 20);
         lblCarID001.setFont(new Font("Arial Black", Font.BOLD, 15));
-                lblCarID001.setForeground(Color.white);
+        lblCarID001.setForeground(Color.white);
 
 
         lblCarID002 = new JLabel("002");
@@ -139,19 +139,27 @@ public class MuscleCar extends JFrame implements ActionListener{
         lblCarID005.setForeground(Color.white);
 
 
-         ///btn
-         btnback = new JButton("BACK");
-         btnback.setBounds(270, 360, 100, 30);
-         btnback.setFont(new Font("Arial", Font.BOLD, 15));
-         btnback.setForeground(Color.black);
-         btnback.addActionListener(this);
+         //btn
+        btnback = new JButton("BACK");
+        btnback.setBounds(200, 360, 100, 30);
+        btnback.setFont(new Font("Arial", Font.BOLD, 15));
+        btnback.setForeground(Color.black);
+        btnback.setBackground(Color.orange);
+        btnback.addActionListener(this);
 
-
-         btnnext = new JButton("NEXT");
-         btnnext.setBounds(420, 360, 100, 30);
-         btnnext.setFont(new Font("Arial", Font.BOLD, 15));
-         btnnext.setForeground(Color.black);
-         btnnext.addActionListener(this);
+        btnnext = new JButton("NEXT");
+        btnnext.setBounds(320, 360, 100, 30);
+        btnnext.setFont(new Font("Arial", Font.BOLD, 15));
+        btnnext.setForeground(Color.black);
+        btnnext.setBackground(Color.orange);
+        btnnext.addActionListener(this);
+        
+        btnlogout = new JButton("LOG OUT");
+        btnlogout.setBounds(520, 360, 130, 30);
+        btnlogout.setFont(new Font("Arial", Font.BOLD, 15));
+        btnlogout.setForeground(Color.black);
+        btnlogout.setBackground(Color.orange);
+        btnlogout.addActionListener(this);
 
 
 
@@ -176,6 +184,7 @@ public class MuscleCar extends JFrame implements ActionListener{
         add(lblCarID005);
         add(btnnext);
         add(btnback);
+        add(btnlogout);
         add(muscle);
 
 
@@ -184,14 +193,17 @@ public class MuscleCar extends JFrame implements ActionListener{
      public void actionPerformed(ActionEvent e){
        
    dispose ();
-    if(e.getSource() == btnback){
+     if(e.getSource() == btnback){
             availablevehicles av = new availablevehicles();
             av.setVisible(true);
-        
-    }
-    else if(e.getSource() == btnnext){
-            GenerateInvoices gi = new GenerateInvoices();
-            gi.setVisible(true);
-        
+        }
+            else if(e.getSource() == btnnext){
+            BookingReservation br = new BookingReservation();
+            br.setVisible(true);
+        }
+            else if(e.getSource() == btnlogout){
+            WelcomeFrame wf = new WelcomeFrame();
+            wf.setVisible(true);
+
     }
      }}

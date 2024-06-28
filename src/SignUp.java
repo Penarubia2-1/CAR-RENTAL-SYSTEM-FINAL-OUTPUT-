@@ -141,20 +141,19 @@ SignUp(){
              try {
                 int age = Integer.parseInt(txtfldAge.getText());
                 if (age < 18) {
-                    JOptionPane.showMessageDialog(this, "You must be 18 years or older to sign up.", "Age Restriction", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "You must be 18 years or older to sign up.", "Age Restriction", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    // Proceed with sign-up logic here
                     JOptionPane.showMessageDialog(this, "Sign up successful!");
-                    // Example: Redirect to another window or perform sign-up actions
                 }
-            } catch (NumberFormatException si) {
+            } 
+                catch (NumberFormatException si) {
                 JOptionPane.showMessageDialog(this, "Invalid age format.", "Error", JOptionPane.ERROR_MESSAGE);
         }
               dispose();
               Login lg=new Login();
-                  lg.setVisible(true);
+              lg.setVisible(true);
         }
-        else if(e.getSource()==btnback){
+            else if(e.getSource()==btnback){
             dispose();
             ClientAdmin ca=new ClientAdmin();
             ca.setVisible(true);

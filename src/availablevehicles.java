@@ -1,8 +1,6 @@
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,65 +12,70 @@ import javax.swing.*;
  * @author John Mark Penarubia
  */
 public class availablevehicles extends JFrame  implements ActionListener{
-            private JLabel label = new JLabel();
+         private JLabel label = new JLabel();
         private JLabel lblAvailableVehicle, lblTypes, lblChoose;  
         private JButton btnMuscle,btnSUV,btnVan,btnHatchback,btnPickup,btnback;
         
         
        availablevehicles(){
        setTitle("Avaible Page");
-       setSize(500,500);
-       getContentPane().setBackground(Color.gray);
+       setSize(600,500);
+       getContentPane().setBackground(Color.black);
        setDefaultCloseOperation(EXIT_ON_CLOSE);
        setLayout(null);
        
-        label.setIcon(new ImageIcon(new ImageIcon("\"C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\image\\rent.jpg\"").getImage().getScaledInstance(500, 400, Image.SCALE_SMOOTH)));
 
        
-       lblAvailableVehicle=new JLabel("AVAILABLE TYPES OF VEHICLE");
-       lblAvailableVehicle.setBounds(110,20,300,30);
+       lblAvailableVehicle=new JLabel("AVAILABLE TYPES OF VEHICLE",SwingConstants.CENTER);
+       lblAvailableVehicle.setBounds(0,20,600,30);
        lblAvailableVehicle.setFont(new Font("Arial", Font.BOLD,18));
        lblAvailableVehicle.setForeground(Color.WHITE);
        
-       lblTypes=new JLabel("CHOOSE WHAT TYPE OF CAR:");
-       lblTypes.setBounds(146,45,190,50);
+       lblTypes=new JLabel("CHOOSE WHAT TYPE OF CAR:",SwingConstants.CENTER);
+       lblTypes.setBounds(0,45,600,30);
        lblTypes.setFont(new Font("Arial", Font.BOLD,10));
        lblTypes.setForeground(Color.WHITE);
 
        
        //buttons
        btnMuscle = new JButton("MUSCLE CAR");
-       btnMuscle.setBounds(142,85,160,50);
-       btnMuscle.setBackground(Color.BLACK);
-       btnMuscle.setForeground(Color.WHITE);
-
-       btnSUV = new JButton("SUV CAR");
-       btnSUV.setBounds(142,145,160,50); 
-       btnSUV.setBackground(Color.BLACK);
-       btnSUV.setForeground(Color.WHITE);
-
+       btnMuscle.setBounds(215,85,170,50);
+       btnMuscle.setFont(new Font("Arial", Font.BOLD,15)); 
+       btnMuscle.setForeground(Color.black);
+       btnMuscle.setBackground(Color.orange);
+      
+       btnSUV = new JButton("SUV");
+       btnSUV.setBounds(215,145,170,50);
+       btnSUV.setFont(new Font("Arial", Font.BOLD,15));   
+       btnSUV.setForeground(Color.black);
+       btnSUV.setBackground(Color.orange);
+      
+       btnVan = new JButton("VAN");
+       btnVan.setBounds(215,205,170,50);
+       btnVan.setFont(new Font("Arial", Font.BOLD,15));
+       btnVan.setForeground(Color.black);
+       btnVan.setBackground(Color.orange);
        
-       btnVan = new JButton("VAN CAR");
-       btnVan.setBounds(142,205,160,50);
-       btnVan.setBackground(Color.BLACK);
-       btnVan.setForeground(Color.WHITE);
-       
-       btnHatchback = new JButton("HATCHBACK CAR");
-       btnHatchback.setBounds(142,265,160,50);
-       btnHatchback.setBackground(Color.BLACK);
-       btnHatchback.setForeground(Color.WHITE);
-       
-       btnPickup = new JButton("PICKUP CAR");
-       btnPickup.setBounds(142,325,160,50);
-       btnPickup.setBackground(Color.BLACK);
-       btnPickup.setForeground(Color.WHITE);
-       
-        btnback = new JButton("BACK");
-       btnback.setBounds(165,380,110,30);
-       btnback.setForeground(Color.BLACK);
-     
-
-       //f.add
+        
+       btnHatchback = new JButton("HATCHBACK");
+       btnHatchback.setBounds(215,265,170,50);
+       btnHatchback.setFont(new Font("Arial", Font.BOLD,15));
+       btnHatchback.setForeground(Color.black);
+       btnHatchback.setBackground(Color.orange);
+      
+       btnPickup = new JButton("PICKUP");
+       btnPickup.setBounds(215,325,170,50);
+       btnPickup.setFont(new Font("Arial", Font.BOLD,15));
+       btnPickup.setForeground(Color.black);
+       btnPickup.setBackground(Color.orange);
+      
+       btnback = new JButton("BACK");
+       btnback.setBounds(249,400,110,30);
+       btnback.setFont(new Font("Arial", Font.BOLD,15));
+       btnback.setForeground(Color.black);
+       btnback.setBackground(Color.orange);
+      
+       //add
        add(lblAvailableVehicle);
        add(lblTypes);
        add(btnMuscle);
@@ -81,7 +84,6 @@ public class availablevehicles extends JFrame  implements ActionListener{
        add(btnHatchback);
        add(btnPickup);
        add(btnback);
-       add(label);
 
        btnMuscle.addActionListener(this);
        btnSUV.addActionListener(this);
