@@ -8,6 +8,7 @@ author CALAGOS
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import sun.security.util.Password;
 
 public class Login extends JFrame implements ActionListener{ 
     private JLabel lblEmail,lblPassword,lblResult, lblLogin,lblif,bg;
@@ -92,15 +93,31 @@ public class Login extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         dispose();
+         
+
         if(e.getSource()==btnCreate){
             SignUp su=new SignUp();
             su.setVisible(true);
+        }
+            else if (e.getSource()==btnLogin){
+     
+            String Email = txtfldEmail.getText();
+            String Password = new String(psswrdfldPassword.getPassword());
+             JOptionPane.showMessageDialog(this, "Login successful!");
+
+            ChooseServices cs = new ChooseServices();
+                cs.setVisible(true); 
+                
+        
+        
+               
         }
         else if(e.getSource()==btnback){
             ClientAdmin  ca=new ClientAdmin();
             ca.setVisible(true);
             
-        }
+        
+        
     }
 
    
@@ -108,4 +125,5 @@ public class Login extends JFrame implements ActionListener{
 
     
     
+}
 }
