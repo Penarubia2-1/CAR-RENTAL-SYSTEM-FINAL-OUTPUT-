@@ -9,25 +9,42 @@
  */
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class InvoiceDisplay extends JFrame {
+public class InvoiceDisplay extends JFrame implements ActionListener{
     private JLabel lblInvoice;
+    private JButton btnsend;
+    private JTextArea txtInvoice;
 
     InvoiceDisplay(String customerName, String vehicleModel, String baseCostPerDay, String additionalCost, String rentalDays) {
         setTitle("Invoice");
-        setSize(400, 300);
+        setSize(600, 600);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+                        
+     String invoiceText = "Customer Name: " + customerName + "\n"
+                + "Vehicle ID: " + vehicleModel + "\n"
+                + "Base Cost Per Day: $" + baseCostPerDay + "\n"
+                + "Additional Cost: $" + additionalCost + "\n"
+                + "Rental Days: " + rentalDays + "\n"
+                + "Total Amount Due: $" + calculateTotal(baseCostPerDay, additionalCost, rentalDays);
 
-        lblInvoice = new JLabel("<html><b>Customer Name:</b> " + customerName + "<br>"
-                + "<b>Vehicle ID:</b> " + vehicleModel + "<br>"
-                + "<b>Base Cost Per Day:</b> $" + baseCostPerDay + "<br>"
-                + "<b>Additional Cost:</b> $" + additionalCost + "<br>"
-                + "<b>Rental Days:</b> " + rentalDays + "<br>"
-                + "<b>Total Amount Due:</b> $" + calculateTotal(baseCostPerDay, additionalCost, rentalDays)
-                + "</html>");
-        lblInvoice.setBounds(20, 20, 360, 200);
-        lblInvoice.setFont(new Font("Arial", Font.PLAIN, 16));
+JTextArea txtInvoice = new JTextArea(invoiceText);
+txtInvoice.setBounds(20, 20, 360, 200);
+txtInvoice.setFont(new Font("Arial", Font.PLAIN, 16));
+txtInvoice.setEditable(false);
+txtInvoice.setBackground(null);
+txtInvoice.setBorder(null);
+
+add(txtInvoice); 
+        btnsend = new JButton("Send Email");
+        btnsend.setBounds(80,190,150,30);
+        btnsend.setFont(new Font("Arial", Font.BOLD, 18));
+        btnsend.setBackground(Color.orange);
+        btnsend.setForeground(Color.black);
+        btnsend.addActionListener(this);
+        add(btnsend);
 
         add(lblInvoice);
 
@@ -36,12 +53,18 @@ public class InvoiceDisplay extends JFrame {
     }
 
     private String calculateTotal(String baseCostPerDay, String additionalCost, String rentalDays) {
+        
         double baseCost = Double.parseDouble(baseCostPerDay);
         double addCost = Double.parseDouble(additionalCost);
         int days = Integer.parseInt(rentalDays);
 
         double total = (baseCost + addCost) * days;
         return String.format("%.2f", total);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
     }
 }
 

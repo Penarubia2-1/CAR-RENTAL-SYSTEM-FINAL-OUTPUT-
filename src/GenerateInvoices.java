@@ -32,7 +32,7 @@ public class GenerateInvoices extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.gray);
 
-        lblcstmrName= new JLabel("Customer Name");  
+      lblcstmrName= new JLabel("Customer Name");  
       lblcstmrName.setBounds(80,50,160,30);
       lblcstmrName.setFont(new Font("Arial Black",Font.BOLD,15));
       
@@ -73,23 +73,23 @@ public class GenerateInvoices extends JFrame implements ActionListener {
       
       //button
       btnGenerate=new JButton("GENERATE INVOICES");
-      btnGenerate.setBounds(250,272,180,30);
+      btnGenerate.setBounds(300,272,180,30);
       btnGenerate.setFont(new Font("Arial",Font.BOLD,13));
       btnGenerate.addActionListener(this);
       btnGenerate.setBackground(Color.YELLOW);
       
       btnBack=new JButton("BACK");
-      btnBack.setBounds(140,272,100,30);
+      btnBack.setBounds(80,272,100,30);
       btnBack.setFont(new Font("Arial",Font.BOLD,13));
       btnBack.addActionListener(this);
       
       btnClear=new JButton("Clear");
-      btnClear.setBounds(10,272,100,30);
+      btnClear.setBounds(190,272,100,30);
       btnClear.setFont(new Font("Arial",Font.BOLD,13));
       btnClear.addActionListener(this);
       
       
-      //fadd
+      //add
       add(lblcstmrName);
       add(txtfldName);
       add(lblVehicleModel);
@@ -103,10 +103,9 @@ public class GenerateInvoices extends JFrame implements ActionListener {
       add(btnGenerate);
       add(btnBack);
       add(btnClear);
-        // ... (all your existing GUI setup code)
+       
 
-        setVisible(true);
-        setResizable(false);
+        
     }
 
     @Override
@@ -114,19 +113,24 @@ public class GenerateInvoices extends JFrame implements ActionListener {
         if (e.getSource() == btnClear) {
             clearFields();
         } else if (e.getSource() == btnGenerate) {
+            dispose();
             String name = txtfldName.getText();
             String vModel = txtVModel.getText();
             String bcpDay = txtBCPday.getText();
             String add = txtAdd.getText();
             String days = txtDays.getText();
-
             // Create new InvoiceDisplay frame with entered data
             new InvoiceDisplay(name, vModel, bcpDay, add, days);
             
             clearFields(); // Optional: Clear fields after generating invoice
         }
+    
+    else if(e.getSource()==btnBack){
+        dispose();
+        AdminReservationUI ar= new AdminReservationUI();
+        ar.setVisible(true);
     }
-
+    }
     private void clearFields() {
         txtfldName.setText("");
         txtVModel.setText("");
