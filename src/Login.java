@@ -8,6 +8,12 @@ author CALAGOS
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sun.security.util.Password;
 
 public class Login extends JFrame implements ActionListener{ 
@@ -100,13 +106,35 @@ public class Login extends JFrame implements ActionListener{
         }
             else if (e.getSource()==btnLogin){
             String Email = txtfldEmail.getText();
-            String Password = new String(psswrdfldPassword.getPassword());
+            String Password = psswrdfldPassword.getText();
+            String msg = " " + Email;
+            msg += " \n";
+            
+                 try {
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/1", "Jurie", "12345");
+
+                    String query = "INSERT INTO tbl_login('" + Email + "','" + Password + "')";
+
+                    Statement sta = connection.createStatement();
+                    int x = sta.executeUpdate(query);
+                    if (x == 0) {
+                        JOptionPane.showMessageDialog(btnLogin, "This is alredy exist");
+                    } else {
+                        JOptionPane.showMessageDialog(btnLogin,
+                            "Welcome, " + msg + "Your account is sucessfully created");
+                    }
+                    connection.close();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            
             JOptionPane.showMessageDialog(this, "Login successful!");
             dispose();
             ChooseServices cs = new ChooseServices();
             cs.setVisible(true); 
             
-        }
+            }
+        
         else if(e.getSource()==btnback){
             dispose();
             ClientAdmin  ca=new ClientAdmin();

@@ -74,8 +74,8 @@ public class ClientAdmin extends JFrame implements ActionListener  {
     public void actionPerformed(ActionEvent e) {
         dispose();
         if(e.getSource()==btnClient){
-            Login lg=new Login();
-                lg.setVisible(true);
+          SignUp sign=new SignUp();
+                  sign.setVisible(true);
         }
         else if(e.getSource()==btnAdmin){
             dispose();
