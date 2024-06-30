@@ -10,93 +10,112 @@ import java.awt.event.*;
 
 /**
  *
- * @author Marfil
+ * @author John Christopher Marfil
  * 
  */
 
 
 
 public class GenerateInvoices extends JFrame implements ActionListener {
-    private JLabel lblcstmrName, lblVehicleModel, lblBaseCostPerDay, lblAdditionalCost, lblRentalDays;
+    private JLabel generate, lblcstmrName, lblVehicleModel, lblBaseCostPerDay, lblinvoice, lblRentalDays;
     private JTextField txtfldName = new JTextField();
-    private JTextField txtVModel = new JTextField();
+    private JComboBox<String> vehiclecmb;
     private JTextField txtBCPday = new JTextField();
     private JTextField txtAdd = new JTextField();
     private JTextField txtDays = new JTextField();
     private JButton btnGenerate, btnBack, btnClear;
-
+    
+    private static final String[]id={"001","002","003","004","005","006",
+    "007","008","009","010","011","012","013","014","015","016","017","018",
+    "019","020","021","022","023","024","025"};
     GenerateInvoices() {
         setTitle("Generate Rental Invoices");
-        setSize(600, 500);
+        setSize(600, 550);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().setBackground(Color.gray);
-
-      lblcstmrName= new JLabel("Customer Name");  
-      lblcstmrName.setBounds(80,50,160,30);
-      lblcstmrName.setFont(new Font("Arial Black",Font.BOLD,15));
+        getContentPane().setBackground(Color.black);
+        
+      generate= new JLabel("GENERATE INVOICE",SwingConstants.CENTER);  
+      generate.setBounds(0,20,600,30);
+      generate.setFont(new Font("Arial Black",Font.BOLD,15));
+      generate.setForeground(Color.white);
+      add(generate);
       
-      txtfldName.setBounds(260,50,180,30);
-      txtfldName.setFont(new Font("Arial",Font.PLAIN,13));
+      //additionalcost
+      lblinvoice= new JLabel("Invoice ID");  
+      lblinvoice.setBounds(80,90,190,30);
+      lblinvoice.setFont(new Font("Arial Black",Font.BOLD,15));
+      lblinvoice.setForeground(Color.white);
+
+      
+      txtAdd.setBounds(260,90,180,30);
+      txtAdd.setFont(new Font("Arial",Font.BOLD,13));
+      
+      lblcstmrName= new JLabel("Customer Name");  
+      lblcstmrName.setBounds(80,140,160,30);
+      lblcstmrName.setFont(new Font("Arial Black",Font.BOLD,15));
+      lblcstmrName.setForeground(Color.white);
+
+      
+      txtfldName.setBounds(260,140,180,30);
+      txtfldName.setFont(new Font("Arial",Font.BOLD,13));
       
       //vehiclemodel
       lblVehicleModel= new JLabel("Vehicle ID");  
-      lblVehicleModel.setBounds(80,95,160,30);
+      lblVehicleModel.setBounds(80,190,160,30);
       lblVehicleModel.setFont(new Font("Arial Black",Font.BOLD,15));
-      
-      txtVModel.setBounds(260,95,180,30);
-      txtVModel.setFont(new Font("Arial",Font.PLAIN,13));
-      
+      lblVehicleModel.setForeground(Color.white);
+
+      vehiclecmb = new JComboBox<>(id);
+      vehiclecmb.setBounds(260, 190, 180, 30);
+      add(vehiclecmb);
+     
       //basecost
-      lblBaseCostPerDay= new JLabel("Base Cost Per Day");  
-      lblBaseCostPerDay.setBounds(80,135,190,30);
+      lblBaseCostPerDay= new JLabel("Cost Per Day");  
+      lblBaseCostPerDay.setBounds(80,240,190,30);
       lblBaseCostPerDay.setFont(new Font("Arial Black",Font.BOLD,15));
-      
-      txtBCPday.setBounds(260,135,180,30);
-      txtBCPday.setFont(new Font("Arial",Font.PLAIN,13));
-      
-      //additionalcost
-      lblAdditionalCost= new JLabel("AdditionalCost");  
-      lblAdditionalCost.setBounds(80,175,190,30);
-      lblAdditionalCost.setFont(new Font("Arial Black",Font.BOLD,15));
-      
-      txtAdd.setBounds(260,175,180,30);
-      txtAdd.setFont(new Font("Arial",Font.PLAIN,13));
+      lblBaseCostPerDay.setForeground(Color.white);
+
+     
+      txtBCPday.setBounds(260,240,180,30);
+      txtBCPday.setFont(new Font("Arial",Font.BOLD,13));
       
       //rentaldays
       lblRentalDays= new JLabel("Rental Days");  
-      lblRentalDays.setBounds(80,215,190,30);
+      lblRentalDays.setBounds(80,290,190,30);
       lblRentalDays.setFont(new Font("Arial Black",Font.BOLD,15));
-      
-      txtDays.setBounds(260,215,180,30);
-      txtDays.setFont(new Font("Arial",Font.PLAIN,13));
+      lblRentalDays.setForeground(Color.white);
+
+      txtDays.setBounds(260,290,180,30);
+      txtDays.setFont(new Font("Arial",Font.BOLD,13));
       
       //button
       btnGenerate=new JButton("GENERATE INVOICES");
-      btnGenerate.setBounds(300,272,180,30);
+      btnGenerate.setBounds(300,335,180,30);
       btnGenerate.setFont(new Font("Arial",Font.BOLD,13));
       btnGenerate.addActionListener(this);
       btnGenerate.setBackground(Color.YELLOW);
       
       btnBack=new JButton("BACK");
-      btnBack.setBounds(80,272,100,30);
+      btnBack.setBounds(80,335,100,30);
       btnBack.setFont(new Font("Arial",Font.BOLD,13));
       btnBack.addActionListener(this);
+      btnBack.setBackground(Color.YELLOW);
       
       btnClear=new JButton("Clear");
-      btnClear.setBounds(190,272,100,30);
+      btnClear.setBounds(190,335,100,30);
       btnClear.setFont(new Font("Arial",Font.BOLD,13));
       btnClear.addActionListener(this);
+      btnClear.setBackground(Color.YELLOW);
       
       
       //add
       add(lblcstmrName);
       add(txtfldName);
       add(lblVehicleModel);
-      add(txtVModel);
       add(lblBaseCostPerDay);
       add(txtBCPday);
-      add(lblAdditionalCost);
+      add(lblinvoice);
       add(txtAdd);
       add(lblRentalDays);
       add(txtDays);
@@ -115,14 +134,14 @@ public class GenerateInvoices extends JFrame implements ActionListener {
         } else if (e.getSource() == btnGenerate) {
             dispose();
             String name = txtfldName.getText();
-            String vModel = txtVModel.getText();
+            String vID =(String) vehiclecmb.getSelectedItem();
             String bcpDay = txtBCPday.getText();
             String add = txtAdd.getText();
             String days = txtDays.getText();
-            // Create new InvoiceDisplay frame with entered data
-            new InvoiceDisplay(name, vModel, bcpDay, add, days);
+            //invoice
+            new InvoiceDisplay(name, vID, bcpDay, add, days);
             
-            clearFields(); // Optional: Clear fields after generating invoice
+            clearFields(); 
         }
     
     else if(e.getSource()==btnBack){
@@ -133,7 +152,7 @@ public class GenerateInvoices extends JFrame implements ActionListener {
     }
     private void clearFields() {
         txtfldName.setText("");
-        txtVModel.setText("");
+        vehiclecmb.setSelectedIndex(0);
         txtBCPday.setText("");
         txtAdd.setText("");
         txtDays.setText("");

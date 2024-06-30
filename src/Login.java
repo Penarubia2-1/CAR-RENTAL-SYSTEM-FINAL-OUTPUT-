@@ -46,8 +46,7 @@ public class Login extends JFrame implements ActionListener {
         }
 
         bg = new JLabel();
-        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\myimg.png")
-                .getImage().getScaledInstance(200, 400, Image.SCALE_SMOOTH)));
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\myimg.png").getImage().getScaledInstance(200, 400, Image.SCALE_SMOOTH)));
         bg.setBounds(500, 90, 200, 400);
 
         lblLogin = new JLabel("LOG IN YOUR ACCOUNT", SwingConstants.CENTER);
