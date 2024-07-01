@@ -10,9 +10,12 @@
 import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.*;
+import javax.swing.table.DefaultTableModel;
 public class AdminReservationUI extends JFrame implements ActionListener {
     JLabel lblHiAdmin;
-    JButton btnexit,btnAdd,btnedit,btnDelete,btnUpdate,btngenerate,btnRESERVATIONS,btnAVAILorNOT,btnclient;
+    JButton btnexit,btnAdd,btnedit,btnDelete,btnUpdate,btngenerate,btnRESERVATIONS,btnAVAILorNOT,btninvoices,btnclient;
+    private JTable table;
+    private JScrollPane scrollPane;
     AdminReservationUI(){
         setTitle("Hi Admin!");
         setSize(1000,700);
@@ -31,6 +34,30 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         
         btnAVAILorNOT=new JButton("CHANGES OF CAR");
         btnAVAILorNOT.setBounds(380,60,190,30);
+        
+        btninvoices=new JButton("INVOICES");
+        btninvoices.setBounds(590,60,190,30);
+        
+        //table
+         // Create table model
+        DefaultTableModel model = new DefaultTableModel();
+        table = new JTable(model);
+        scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(130, 130, 640, 450);
+        add(scrollPane);
+
+        // Add columns to the table model
+        model.addColumn("Name");
+        model.addColumn("Vehicle_ID");
+        model.addColumn("Days");
+        model.addColumn("Address");
+        model.addColumn("Contact Number");
+
+        // Fetch records from database and populate the table
+        fetchAndDisplayRecords(model);
+
+        setVisible(true);
+    
         
         btnAdd = new JButton("ADD");
         btnAdd.setBounds(100, 600, 80, 40);
@@ -55,6 +82,7 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         add(btnclient);
         add(btnRESERVATIONS);
         add(btnAVAILorNOT);
+        add(btninvoices);
         add(btnexit);
         add(btngenerate);
         add(btnAdd);
@@ -69,7 +97,10 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         btnclient.addActionListener(this);
         btnAVAILorNOT.addActionListener(this);
         btngenerate.addActionListener(this);
+        btninvoices.addActionListener(this);
 
+    }
+         private void fetchAndDisplayRecords(DefaultTableModel model) {
     }
 
     @Override
@@ -91,6 +122,10 @@ public class AdminReservationUI extends JFrame implements ActionListener {
          else if(e.getSource()==btngenerate){
             GenerateInvoices gi =new GenerateInvoices();
             gi.setVisible(true);
+        }
+        else if(e.getSource()==btninvoices){
+            AdminInvoices ar =new AdminInvoices();
+            ar.setVisible(true);
         }
     }
 

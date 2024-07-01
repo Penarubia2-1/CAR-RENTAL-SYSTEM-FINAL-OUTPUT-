@@ -12,18 +12,18 @@ import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.table.DefaultTableModel;
 
-public class Admin extends JFrame implements ActionListener {
+public class AdminInvoices extends JFrame implements ActionListener {
     private JLabel lblHiAdmin;
     private JButton btnexit,btnAdd,btnedit,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btninvoices,btnclient;
     private JTable table;
     private JScrollPane scrollPane;
-    Admin(){
+    AdminInvoices(){
         setTitle("Hi Admin!");
         setSize(1000,700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         
-        lblHiAdmin = new JLabel("Welcome, Admin! Check for Clients",SwingConstants.CENTER);
+        lblHiAdmin = new JLabel("Welcome, Admin! Check for INVOICE",SwingConstants.CENTER);
         lblHiAdmin.setBounds(0, 5, 1000, 80);
         lblHiAdmin.setFont(new Font("Arial", Font.BOLD, 15));
         
@@ -48,11 +48,11 @@ public class Admin extends JFrame implements ActionListener {
         add(scrollPane);
 
         // Add columns to the table model
-        model.addColumn("Email");
-        model.addColumn("Contact Number");
-        model.addColumn("Age");
-        model.addColumn("Address");
-        model.addColumn("Postal Code");
+        model.addColumn("Invoie ID");
+        model.addColumn("Customer Name");
+        model.addColumn("Vehicle ID");
+        model.addColumn("Cost Per Day");
+        model.addColumn("Rental Days");
 
         // Fetch records from database and populate the table
         fetchAndDisplayRecords(model);
@@ -93,8 +93,6 @@ public class Admin extends JFrame implements ActionListener {
         btnUpdate.addActionListener(this);
         btnRESERVATIONS.addActionListener(this);
         btnAVAILorNOT.addActionListener(this);
-        btninvoices.addActionListener(this);
-
     }
             private void fetchAndDisplayRecords(DefaultTableModel model) {
             
@@ -113,12 +111,8 @@ public class Admin extends JFrame implements ActionListener {
             AdminReservationUI ar =new AdminReservationUI();
             ar.setVisible(true);
         }
-        else if(e.getSource()==btnAVAILorNOT){
+         else if(e.getSource()==btnAVAILorNOT){
             AdminAVAILorNOT ar =new AdminAVAILorNOT();
-            ar.setVisible(true);
-        }
-        else if(e.getSource()==btninvoices){
-            AdminInvoices ar =new AdminInvoices();
             ar.setVisible(true);
         }
     }

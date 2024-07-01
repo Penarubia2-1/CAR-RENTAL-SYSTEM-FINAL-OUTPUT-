@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.event.*;
 public class AdminAVAILorNOT extends JFrame implements ActionListener {
     JLabel lblHiAdmin;
-    JButton btnexit,btnAdd,btnedit,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btnclient;
+    JButton btnexit,btnAdd,btnedit,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btninvoices,btnclient;
      private JFrame frame;
     private JLabel label1;
     private JLabel label2;
@@ -47,6 +47,9 @@ public class AdminAVAILorNOT extends JFrame implements ActionListener {
         
         btnAVAILorNOT=new JButton("CHANGES OF CAR");
         btnAVAILorNOT.setBounds(380,60,190,30);
+        
+        btninvoices=new JButton("INVOICES");
+        btninvoices.setBounds(590,60,190,30);
         
         btnAdd = new JButton("ADD");
         btnAdd.setBounds(100, 600, 80, 40);
@@ -161,6 +164,7 @@ public class AdminAVAILorNOT extends JFrame implements ActionListener {
         add(btnclient);
         add(btnRESERVATIONS);
         add(btnAVAILorNOT);
+        add(btninvoices);
         add(btnexit);
         add(btnAdd);
         add(btnedit);
@@ -189,6 +193,7 @@ public class AdminAVAILorNOT extends JFrame implements ActionListener {
         btnUpdate.addActionListener(this);
         btnclient.addActionListener(this);
         btnRESERVATIONS.addActionListener(this);
+        btninvoices.addActionListener(this);
         
     }
 
@@ -207,6 +212,11 @@ public class AdminAVAILorNOT extends JFrame implements ActionListener {
             Admin ar =new Admin();
             ar.setVisible(true);
         }
+        else if(e.getSource()==btninvoices){
+            AdminInvoices ar =new AdminInvoices();
+            ar.setVisible(true);
+        }
+        
     }
 
        
