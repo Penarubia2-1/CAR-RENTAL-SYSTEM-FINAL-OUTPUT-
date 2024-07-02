@@ -6,21 +6,21 @@ public class InvoiceDisplay extends JFrame implements ActionListener {
     private JButton btnSend,btnback;
     private JTextArea txtInvoice;
 
-    InvoiceDisplay(String customerName, String vID, String baseCostPerDay, String invoice, String rentalDays) {
+    InvoiceDisplay(String email, String vID, String baseCostPerDay, String invoice, String rentalDays) {
         setTitle("Invoice");
         setSize(400, 550);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         String invoiceText = "Invoice ID: " + invoice + "\n"+"\n"+
-                "Customer Name: " + customerName + "\n"+"\n"
+                "Email: " + email + "\n"+"\n"
                 + "Vehicle Model: " + vID + "\n"+"\n"
                 + "Base Cost Per Day: " + baseCostPerDay + "\n"+"\n"
                 + "Rental Days: " + rentalDays + "\n"+"\n"
                 + "Total Amount Due: " + calculateTotal(baseCostPerDay, rentalDays);
 
         txtInvoice = new JTextArea(invoiceText);
-        txtInvoice.setBounds(100, 50, 290, 300);
+        txtInvoice.setBounds(80, 50, 290, 300);
         txtInvoice.setFont(new Font("Arial", Font.PLAIN, 16));
         txtInvoice.setEditable(false);
         txtInvoice.setBackground(null);

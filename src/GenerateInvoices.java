@@ -51,7 +51,7 @@ public class GenerateInvoices extends JFrame implements ActionListener {
       txtAdd.setBounds(260,90,180,30);
       txtAdd.setFont(new Font("Arial",Font.BOLD,13));
       
-      lblcstmrName= new JLabel("Customer Name");  
+      lblcstmrName= new JLabel("Email");  
       lblcstmrName.setBounds(80,140,160,30);
       lblcstmrName.setFont(new Font("Arial Black",Font.BOLD,15));
       lblcstmrName.setForeground(Color.white);
@@ -133,13 +133,13 @@ public class GenerateInvoices extends JFrame implements ActionListener {
             clearFields();
         } else if (e.getSource() == btnGenerate) {
             dispose();
-            String name = txtfldName.getText();
+            String email = txtfldName.getText();
             String vID =(String) vehiclecmb.getSelectedItem();
             String bcpDay = txtBCPday.getText();
             String add = txtAdd.getText();
             String days = txtDays.getText();
             //invoice
-            new InvoiceDisplay(name, vID, bcpDay, add, days);
+            new InvoiceDisplay(email, vID, bcpDay, add, days);
             
             clearFields(); 
         }
