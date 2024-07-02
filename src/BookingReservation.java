@@ -14,17 +14,17 @@ import javax.swing.*;
  * @author Daiichi Magno
  */
 public class BookingReservation  extends JFrame implements ActionListener {
-    
-    
     private JLabel lblVehicleModel, lbldays, lblAddress,lblContactnumber,Reservation,lblname;
-    private JTextField txtfldVehicleModel = new JTextField();
     private JTextField txtflddays = new JTextField();
     private JTextField txtfldAddress = new JTextField();
     private JTextField txtfldContactnumber = new JTextField(); 
     private JTextField txtfldname = new JTextField();
     private JButton btnreserve, btnBack, btnReset;
+    private JComboBox<String> vehiclecmb;
 
-    
+    private static final String[]id={"001","002","003","004","005","006",
+    "007","008","009","010","011","012","013","014","015","016","017","018",
+    "019","020","021","022","023","024","025"};
     
     BookingReservation(){
     
@@ -39,7 +39,7 @@ public class BookingReservation  extends JFrame implements ActionListener {
         Reservation.setBounds(0, 120, 600, 600);
          
     
-    lblname = new JLabel("NAME:");
+    lblname = new JLabel("EMAIL:");
     lblname.setBounds(90, 50, 200, 30);
     lblname.setFont(new Font("Arial", Font.BOLD, 20));
     lblname.setForeground(Color.white);
@@ -68,34 +68,31 @@ public class BookingReservation  extends JFrame implements ActionListener {
     lblContactnumber.setFont(new Font("Arial", Font.BOLD, 20));
     lblContactnumber.setForeground(Color.white);
         
-    btnBack = new JButton("Back");
+    btnBack = new JButton("BACK");
     btnBack.setBounds(70, 300, 100, 30);
     btnBack.setFont(new Font("Arial", Font.BOLD, 15));
     btnBack.addActionListener(this);
-    btnBack.setForeground(Color.white);
-    btnBack.setBackground(Color.blue);
+    btnBack.setBackground(Color.yellow);
     
-    btnReset = new JButton("clear");
+    btnReset = new JButton("CLEAR");
     btnReset.setBounds(230, 300, 100, 30);
     btnReset.setFont(new Font("Arial", Font.BOLD, 15));
     btnReset.addActionListener(this);
-    btnReset.setBackground(Color.blue);
-    btnReset.setForeground(Color.WHITE);
+    btnReset.setBackground(Color.yellow);
     
-    btnreserve = new JButton("Reserve");
-    btnreserve.setBounds(350, 300, 100, 30);
+    btnreserve = new JButton("RESERVE");
+    btnreserve.setBounds(350, 300, 120, 30);
     btnreserve.setFont(new Font("Arial", Font.BOLD, 15));
     btnreserve.addActionListener(this);
-    btnreserve.setBackground(Color.blue);
-    btnreserve.setForeground(Color.WHITE);
+    btnreserve.setBackground(Color.yellow);
     
     txtfldname.setBounds(280, 50, 200,30);
     txtfldname.setFont(new Font("Arial", Font.PLAIN, 20));
     
-    
-    txtfldVehicleModel.setBounds(280, 100, 200,30);
-    txtfldVehicleModel.setFont(new Font("Arial", Font.PLAIN, 20));
-     
+    vehiclecmb = new JComboBox<>(id);
+    vehiclecmb.setBounds(280, 100, 200, 30);
+    add(vehiclecmb);
+   
     
     txtflddays.setBounds(280, 150, 200,30);
     txtflddays.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -119,7 +116,6 @@ public class BookingReservation  extends JFrame implements ActionListener {
     add(lbldays);
     add(lblContactnumber);
     add(lblAddress);
-    add(txtfldVehicleModel);
     add(txtflddays);
     add(txtfldContactnumber);
     add(txtfldAddress);
@@ -138,7 +134,7 @@ public class BookingReservation  extends JFrame implements ActionListener {
             cs.setVisible(true);
     }
    else if(e.getSource() == btnReset){     
-            txtfldVehicleModel.setText("");
+            String vID =(String) vehiclecmb.getSelectedItem();
             txtflddays.setText("");
             txtfldContactnumber.setText("");
             txtfldAddress.setText("");
