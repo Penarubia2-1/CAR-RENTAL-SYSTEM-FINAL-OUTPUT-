@@ -97,6 +97,24 @@ public class AdminInvoices extends JFrame implements ActionListener {
         btnUpdate.addActionListener(this);
         btnRESERVATIONS.addActionListener(this);
         btnAVAILorNOT.addActionListener(this);
+       }
+     
+
+    private void addRecord(String Email, String Vehicle_ID, String Days, String bcpday, String rentaldays) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
+            String sql = "INSERT INTO tbl_invoices (Email, Vehicle_ID, Days, bcpday, rentaldays) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, Email);
+                pstmt.setString(2, Vehicle_ID);
+                pstmt.setString(3, Days);
+                pstmt.setString(4, bcpday);
+                pstmt.setString(5, rentaldays);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    
     }
      private void updateRecord(int selectedRow, String Email, String Vehicle_ID, String Days, String bcpday, String rentaldays) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
@@ -203,8 +221,22 @@ public class AdminInvoices extends JFrame implements ActionListener {
              dispose();
              Admin ad = new Admin();
                   ad.setVisible(true);
+         }
+         else if(e.getSource()==btnAdd){
+            String Email = JOptionPane.showInputDialog(this, "Enter Email:");
+            String Vehicle_ID = JOptionPane.showInputDialog(this, "Enter Vehicle ID:");
+            String Days = JOptionPane.showInputDialog(this, "Enter Days:");
+            String bcpday = JOptionPane.showInputDialog(this, "Enter Cost Per Day:");
+            String rentaldays = JOptionPane.showInputDialog(this, "Enter Rental Days:");
+            addRecord(Email, Vehicle_ID, Days, bcpday, rentaldays);
+            // Add the new record 
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.addRow(new Object[]{Email, Vehicle_ID, Days, bcpday, rentaldays});
+        }
+
          
-          } else if (e.getSource() == btnDelete) {
+        
+         else if (e.getSource() == btnDelete) {
             int selectedRow = table.getSelectedRow();
             if (selectedRow != -1) {
                 int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this record?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);

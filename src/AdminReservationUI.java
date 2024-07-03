@@ -91,6 +91,50 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         btngenerate.addActionListener(this);
         btninvoices.addActionListener(this);
     }
+     
+
+    private void addRecord(String Email, String Vehicle_ID, String Days, String Address, String Contact_Number) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
+            String sql = "INSERT INTO tbl_bookingreservation (Email, Vehicle_ID, Days, Address, Conact_Number) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, Email);
+                pstmt.setString(2, Vehicle_ID);
+                pstmt.setString(3, Days);
+                pstmt.setString(4, Address);
+                pstmt.setString(5, Contact_Number);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    private void deleteRecord(int selectedRow) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345");
+            String sql = "DELETE FROM tbl_bookingreservation WHERE Email=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, (String) table.getValueAt(selectedRow, 0));
+            pstmt.executeUpdate();
+
+            // Remove row from table model
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.removeRow(selectedRow);
+
+            JOptionPane.showMessageDialog(this, "Record deleted successfully.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
     private void updateRecord(int selectedRow, String Email, String Vehicle_ID, String Days, String Address, String Contact_Number) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
@@ -149,6 +193,27 @@ public class AdminReservationUI extends JFrame implements ActionListener {
             dispose();
             AdminInvoices ar = new AdminInvoices();
             ar.setVisible(true);
+        }else if(e.getSource()==btnAdd){
+            String Email = JOptionPane.showInputDialog(this, "Enter Email:");
+            String Vehicle_ID = JOptionPane.showInputDialog(this, "Enter Vehicle ID:");
+            String Days = JOptionPane.showInputDialog(this, "Enter Days:");
+            String Address = JOptionPane.showInputDialog(this, "Enter Cost Per Day:");
+            String Contact_Number = JOptionPane.showInputDialog(this, "Enter Rental Days:");
+            addRecord(Email, Vehicle_ID, Days, Address, Contact_Number);
+            //add record
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.addRow(new Object[]{Email, Vehicle_ID, Days, Address, Contact_Number});
+    
+        }else if(e.getSource()==btnDelete){
+             int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this record?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    deleteRecord(selectedRow);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a row to delete.");
+            }
         
         } else if (e.getSource() == btnUpdate) {
             int selectedRow = table.getSelectedRow();
@@ -174,4 +239,7 @@ public class AdminReservationUI extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         new AdminReservationUI();
-    }}
+    }
+
+  
+}

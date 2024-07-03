@@ -95,7 +95,25 @@ public class Admin extends JFrame implements ActionListener {
         btnRESERVATIONS.addActionListener(this);
         btnAVAILorNOT.addActionListener(this);
         btninvoices.addActionListener(this);
-
+    }
+        private void addRecord(String Email, String Age, String Phone, String Address, String PostalCode,String  Password) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
+            String sql = "INSERT INTO tbl_client (Email, Vehicle_ID, Days, bcpday, rentaldays) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, Email);
+                pstmt.setString(2, Age);
+                pstmt.setString(3, Phone);
+                pstmt.setString(4, Address);
+                pstmt.setString(5, PostalCode);
+                pstmt.setString(6, Password);
+                
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    
+    
     }
      private void updateRecord(int selectedRow, String Email, String Age, String Phone, String Address, String PostalCode,String Password) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
@@ -114,7 +132,34 @@ public class Admin extends JFrame implements ActionListener {
             ex.printStackTrace();
         }
     }
+         
+     private void deleteRecord(int selectedRow) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
 
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345");
+            String sql = "DELETE FROM tbl_client WHERE Email=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, (String) table.getValueAt(selectedRow, 0)); 
+            pstmt.executeUpdate();
+
+            // Remove row from table model
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.removeRow(selectedRow);
+
+            JOptionPane.showMessageDialog(this, "Record deleted successfully.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
             
         private void fetchAndDisplayRecords(DefaultTableModel model)  {
          Connection conn = null;
@@ -176,7 +221,21 @@ public class Admin extends JFrame implements ActionListener {
             AdminInvoices ar =new AdminInvoices();
             ar.setVisible(true);
         
-    } 
+        }
+        else if (e.getSource()==btnAdd){
+            String Email = JOptionPane.showInputDialog(this, "Enter Email:");
+            String Age = JOptionPane.showInputDialog(this, "Enter Age:");
+            String Phone = JOptionPane.showInputDialog(this, "Enter Phone:");
+            String Address = JOptionPane.showInputDialog(this, "Enter Address:");
+            String PostalCode = JOptionPane.showInputDialog(this, "Enter Postal Code:");
+            String Password = JOptionPane.showInputDialog(this, "Enter Password:");
+
+            addRecord(Email, Age, Phone, Address, PostalCode,Password);
+            // Add the new record 
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.addRow(new Object[]{Email, Age, Phone, Address,PostalCode, Password});
+       
+        }
         else if (e.getSource() == btnUpdate) {
           int selectedRow = table.getSelectedRow();
             if (selectedRow != -1) {
