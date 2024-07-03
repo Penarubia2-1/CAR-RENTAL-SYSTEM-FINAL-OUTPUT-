@@ -7,27 +7,16 @@
  *
  * @author lenovo
  */
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import java.awt.event.*;
+import java.sql.*;
 import javax.swing.table.DefaultTableModel;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class Admin extends JFrame implements ActionListener {
     private JLabel lblHiAdmin;
-    private JButton btnexit,btnAdd,btnedit,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btninvoices,btnclient;
+    private JButton btnexit,btnAdd,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btninvoices,btnclient;
     private JTable table;
     private JScrollPane scrollPane;
     Admin(){
@@ -75,16 +64,15 @@ public class Admin extends JFrame implements ActionListener {
     
          
         btnAdd = new JButton("ADD");
-        btnAdd.setBounds(100, 600, 80, 40);
+        btnAdd.setBounds(150, 600, 80, 40);
         
-        btnedit = new JButton("EDIT");
-        btnedit.setBounds(230, 600, 80, 40);
+        
         
         btnDelete = new JButton("DELETE");
-        btnDelete.setBounds(360, 600, 100, 40);
+        btnDelete.setBounds(310, 600, 100, 40);
 
         btnUpdate = new JButton("UPDATE");
-        btnUpdate.setBounds(490, 600, 100, 40);
+        btnUpdate.setBounds(440, 600, 100, 40);
        
         btnexit=new JButton("LOG OUT");
         btnexit.setBounds(700,600,120,40);
@@ -95,7 +83,6 @@ public class Admin extends JFrame implements ActionListener {
         add(btnAVAILorNOT);
         add(btninvoices);
         add(btnexit);
-        add(btnedit);
         add(btnAdd);
         add(btnDelete);
         add(btnUpdate);
@@ -110,6 +97,24 @@ public class Admin extends JFrame implements ActionListener {
         btninvoices.addActionListener(this);
 
     }
+     private void updateRecord(int selectedRow, String Email, String Age, String Phone, String Address, String PostalCode,String Password) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
+            String sql = "UPDATE tbl_client SET Email=?, Age=?, Phone=?, Address=?, PostalCode=?,Password=? WHERE Email=?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, Email);
+                pstmt.setString(2, Age);
+                pstmt.setString(3, Phone);
+                pstmt.setString(4, Address);
+                pstmt.setString(5, PostalCode);
+                pstmt.setString(6, Password);
+                pstmt.setString(7, (String) table.getValueAt(selectedRow, 0));
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
             
         private void fetchAndDisplayRecords(DefaultTableModel model)  {
          Connection conn = null;
@@ -147,83 +152,63 @@ public class Admin extends JFrame implements ActionListener {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-        }
-
-
-        
-          
+        }       
         }
     @Override
     public void actionPerformed(ActionEvent e) {
-        dispose();
         if(e.getSource()==btnexit){
-            
+            dispose();
             WelcomeFrame wf=new WelcomeFrame();
             wf.setVisible(true);
         }
         else if(e.getSource()==btnRESERVATIONS){
+            dispose();
             AdminReservationUI ar =new AdminReservationUI();
             ar.setVisible(true);
         }
         else if(e.getSource()==btnAVAILorNOT){
+            dispose();
             AdminAVAILorNOT ar =new AdminAVAILorNOT();
             ar.setVisible(true);
         }
         else if(e.getSource()==btninvoices){
+            dispose();
             AdminInvoices ar =new AdminInvoices();
             ar.setVisible(true);
         
     } 
-       else if (e.getSource() instanceof JButton) {
-            JButton clickedButton = (JButton) e.getSource();
-            String buttonText = clickedButton.getText();
+        else if (e.getSource() == btnUpdate) {
+          int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                String Email = JOptionPane.showInputDialog(this, "Enter new Email:", table.getValueAt(selectedRow, 0));
+                String Age = JOptionPane.showInputDialog(this, "Enter new Vehicle ID:", table.getValueAt(selectedRow, 1));
+                String Phone = JOptionPane.showInputDialog(this, "Enter new Days:", table.getValueAt(selectedRow, 2));
+                String Address = JOptionPane.showInputDialog(this, "Enter new Address:", table.getValueAt(selectedRow, 3));
+                String PostalCode = JOptionPane.showInputDialog(this, "Enter new Contact Number:", table.getValueAt(selectedRow, 4));
+                String Password = JOptionPane.showInputDialog(this, "Enter new Contact Number:", table.getValueAt(selectedRow, 4));
 
-            int selectedRow = table.getSelectedRow();
-            switch (buttonText) {
-                case "Update":
-                    if (selectedRow != -1) {
-                        String Email = JOptionPane.showInputDialog(this, "Enter new name:", table.getValueAt(selectedRow, 0));
-                        String Vehicle_ID = JOptionPane.showInputDialog(this, "Enter new Vehicle_ID:", table.getValueAt(selectedRow, 1));
-                        String  Days = JOptionPane.showInputDialog(this, "Enter new Days :", table.getValueAt(selectedRow, 2));
-                        String Address = JOptionPane.showInputDialog(this, "Enter new Address:", table.getValueAt(selectedRow, 3));
-                        String Contact_Number= JOptionPane.showInputDialog(this, "Enter new Contact_Number:", table.getValueAt(selectedRow, 4));
+                updateRecord(selectedRow, Email, Age, Phone, Address, PostalCode,Password);
+                // Update the table model
+                table.setValueAt(Email, selectedRow, 0);
+                table.setValueAt(Age, selectedRow, 1);
+                table.setValueAt(Phone, selectedRow, 2);
+                table.setValueAt(Address, selectedRow, 3);
+                table.setValueAt(PostalCode, selectedRow, 4);
+                 table.setValueAt(Password, selectedRow, 4);
 
-                        
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Please select a row to update");
-                    }
-                    break;
-
-                case "Delete":
-                    if (selectedRow != -1) {
-                        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this reservation?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
-                        if (confirm == JOptionPane.YES_OPTION) {
-                            delete(selectedRow);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Please select a row to delete");
-                    }
-                    break;
-
-                case "Add":
-                    String name = JOptionPane.showInputDialog(this, "Enter Name:");
-                    String contact = JOptionPane.showInputDialog(this, "Enter Contact:");
-                    String checkInStr = JOptionPane.showInputDialog(this, "Enter Check-In Date (YYYY-MM-DD):");
-                    String checkOutStr = JOptionPane.showInputDialog(this, "Enter Check-Out Date (YYYY-MM-DD):");
-                    String roomType = JOptionPane.showInputDialog(this, "Enter Room Type:");
-
-                    try {
-                        Date checkInDate = java.sql.Date.valueOf(checkInStr);
-                        Date checkOutDate = java.sql.Date.valueOf(checkOutStr);
-
-                        addReservation(name, contact, checkInDate, checkOutDate, roomType);
-                    } catch (IllegalArgumentException ex) {
-                        JOptionPane.showMessageDialog(this, "Invalid date format. Use YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                    break;
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a row to update");
             }
+        }
     }
+    
+ public static void main(String[] args) {
+        new Admin();
+    }}
 
-}
+      
+            
+    
+
+
                 
-}

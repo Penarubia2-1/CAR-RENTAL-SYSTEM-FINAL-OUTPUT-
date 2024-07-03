@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class AdminInvoices extends JFrame implements ActionListener {
     private JLabel lblHiAdmin;
-    private JButton btnexit,btnAdd,btnedit,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btninvoices,btnclient;
+    private JButton btnexit,btnAdd,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btninvoices,btnclient;
     private JTable table;
     private JScrollPane scrollPane;
     AdminInvoices(){
@@ -66,16 +67,14 @@ public class AdminInvoices extends JFrame implements ActionListener {
     
          
         btnAdd = new JButton("ADD");
-        btnAdd.setBounds(100, 600, 80, 40);
+        btnAdd.setBounds(150, 600, 80, 40);
         
-        btnedit = new JButton("EDIT");
-        btnedit.setBounds(230, 600, 80, 40);
-        
+      
         btnDelete = new JButton("DELETE");
-        btnDelete.setBounds(360, 600, 100, 40);
+        btnDelete.setBounds(310, 600, 100, 40);
 
         btnUpdate = new JButton("UPDATE");
-        btnUpdate.setBounds(490, 600, 100, 40);
+        btnUpdate.setBounds(440, 600, 100, 40);
        
         btnexit=new JButton("LOG OUT");
         btnexit.setBounds(700,600,120,40);
@@ -86,7 +85,6 @@ public class AdminInvoices extends JFrame implements ActionListener {
         add(btnAVAILorNOT);
         add(btninvoices);
         add(btnexit);
-        add(btnedit);
         add(btnAdd);
         add(btnDelete);
         add(btnUpdate);
@@ -94,11 +92,56 @@ public class AdminInvoices extends JFrame implements ActionListener {
         //addActionListener
         btnexit.addActionListener(this);
         btnAdd.addActionListener(this);
+        btnclient.addActionListener(this);
         btnDelete.addActionListener(this);
         btnUpdate.addActionListener(this);
         btnRESERVATIONS.addActionListener(this);
         btnAVAILorNOT.addActionListener(this);
     }
+     private void updateRecord(int selectedRow, String Email, String Vehicle_ID, String Days, String bcpday, String rentaldays) {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
+            String sql = "UPDATE tbl_invoices SET Email=?, Vehicle_ID=?, Days=?, Address=?, Contact_Number=? WHERE Email=?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, Email);
+                pstmt.setString(2, Vehicle_ID);
+                pstmt.setString(3, Days);
+                pstmt.setString(4, bcpday);
+                pstmt.setString(5, rentaldays);
+                pstmt.setString(6, (String) table.getValueAt(selectedRow, 0));
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+     private void deleteRecord(int selectedRow) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345");
+            String sql = "DELETE FROM tbl_invoices WHERE Invoice_ID=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, (String) table.getValueAt(selectedRow, 0)); 
+            pstmt.executeUpdate();
+
+            // Remove row from table model
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.removeRow(selectedRow);
+
+            JOptionPane.showMessageDialog(this, "Record deleted successfully.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
          private void fetchAndDisplayRecords(DefaultTableModel model)  {
          Connection conn = null;
         Statement stmt = null;
@@ -108,18 +151,15 @@ public class AdminInvoices extends JFrame implements ActionListener {
             // Connect to the database
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345");
 
-            // Create and execute a query
             stmt = conn.createStatement();
             String sql = "SELECT * FROM tbl_invoices";
             rs = stmt.executeQuery(sql);
 
-            // Process the result set
             while (rs.next()) {
                 String Email = rs.getString("Email");
                 String Vehicle_ID = rs.getString("Vehicle_ID");
                 String Days = rs.getString("Days");
-                String bcpday =rs.getString("bcpday");
-                               
+                String bcpday =rs.getString("bcpday");   
                 String rentaldays=rs.getString("rentaldays");
                 // Add row to table model
                 model.addRow(new Object[]{Email,Vehicle_ID,Days,bcpday,rentaldays});
@@ -127,7 +167,7 @@ public class AdminInvoices extends JFrame implements ActionListener {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-            // Close resources
+            // Close 
             try {
                 if (rs != null) rs.close();
                 if (stmt != null) stmt.close();
@@ -144,26 +184,61 @@ public class AdminInvoices extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        dispose();
         if(e.getSource()==btnexit){
-            
+            dispose();
             WelcomeFrame wf=new WelcomeFrame();
             wf.setVisible(true);
         }
         else if(e.getSource()==btnRESERVATIONS){
+            dispose();
             AdminReservationUI ar =new AdminReservationUI();
             ar.setVisible(true);
         }
          else if(e.getSource()==btnAVAILorNOT){
+             dispose();
             AdminAVAILorNOT ar =new AdminAVAILorNOT();
             ar.setVisible(true);
         }
          else if(e.getSource()== btnclient){
+             dispose();
              Admin ad = new Admin();
                   ad.setVisible(true);
+         
+          } else if (e.getSource() == btnDelete) {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this record?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    deleteRecord(selectedRow);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a row to delete.");
+            }}
+         else if(e.getSource()==btnUpdate){
+              int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                String Email = JOptionPane.showInputDialog(this, "Enter new Email:", table.getValueAt(selectedRow, 0));
+                String Vehicle_ID = JOptionPane.showInputDialog(this, "Enter new Vehicle ID:", table.getValueAt(selectedRow, 1));
+                String Days = JOptionPane.showInputDialog(this, "Enter new Days:", table.getValueAt(selectedRow, 2));
+                String bcpday = JOptionPane.showInputDialog(this, "Enter new Cost Per Day:", table.getValueAt(selectedRow, 3));
+                String rentaldays = JOptionPane.showInputDialog(this, "Enter new Rental Days:", table.getValueAt(selectedRow, 4));
+                updateRecord(selectedRow, Email, Vehicle_ID, Days, bcpday, rentaldays);
+                // Update the table 
+                table.setValueAt(Email, selectedRow, 0);
+                table.setValueAt(Vehicle_ID, selectedRow, 1);
+                table.setValueAt(Days, selectedRow, 2);
+                table.setValueAt(bcpday, selectedRow, 3);
+                table.setValueAt(rentaldays, selectedRow, 4);
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a row to update");
+            }
+        }
+    
          }
-             
-    }
+          public static void main(String[] args) {
+        new AdminInvoices();
+    }}    
+    
 
        
-}
+

@@ -34,7 +34,7 @@ public class BookingReservation  extends JFrame implements ActionListener {
     "019","020","021","022","023","024","025"};
     
     BookingReservation(){
-    
+    setTitle("Reservtion");
     setSize(600, 600);
     setLayout(null);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

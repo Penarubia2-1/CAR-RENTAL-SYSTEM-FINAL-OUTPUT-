@@ -107,16 +107,13 @@ public class Login extends JFrame implements ActionListener {
         add(btnback);
         add(bg);
 
-        setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnCreate) {
-            dispose();
-            SignUp su = new SignUp();
-            su.setVisible(true);
-        } else if (e.getSource() == btnLogin) {
+       
+         if (e.getSource() == btnLogin) {
+            
             String email = txtfldEmail.getText();
             String password = new String(psswrdfldPassword.getPassword());
 
@@ -129,26 +126,30 @@ public class Login extends JFrame implements ActionListener {
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(this, "Login successful!");
-                    dispose();
-                    ChooseServices cs = new ChooseServices();
-                    cs.setVisible(true);
+                   
                 } else {
                     JOptionPane.showMessageDialog(this, "Login failed! Invalid credentials.");
                 }
 
                 rs.close();
                 pst.close();
+                ChooseServices cs = new ChooseServices();
+                    cs.setVisible(true);
+                    dispose();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "SQL Error: " + ex.getMessage(), "SQL Error", JOptionPane.ERROR_MESSAGE);
             }
+ 
         } else if (e.getSource() == btnback) {
             dispose();
             ClientAdmin ca = new ClientAdmin();
             ca.setVisible(true);
         }
+         else if (e.getSource() == btnCreate) {
+            dispose();
+            SignUp su = new SignUp();
+            su.setVisible(true);
+          }
     }
 
-    public static void main(String[] args) {
-        Login login = new Login();
-    }
 }
