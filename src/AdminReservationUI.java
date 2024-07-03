@@ -7,9 +7,20 @@
  *
  * @author lenovo
  */
+import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
+import com.mysql.cj.xdevapi.Table;
 import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.*;
+import static java.awt.event.PaintEvent.UPDATE;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 public class AdminReservationUI extends JFrame implements ActionListener {
     JLabel lblHiAdmin;
@@ -47,7 +58,7 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         add(scrollPane);
 
         // Add columns to the table model
-        model.addColumn("Name");
+        model.addColumn("Email");
         model.addColumn("Vehicle_ID");
         model.addColumn("Days");
         model.addColumn("Address");
@@ -100,8 +111,83 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         btninvoices.addActionListener(this);
 
     }
-         private void fetchAndDisplayRecords(DefaultTableModel model) {
+    private void Update (){
+         Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Connect to the database
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345");
+
+            // Create and execute a query
+            stmt = conn.createStatement();
+   String sql = "UPDATE tbl_bookingreservation SET Email=?, Vehicle_ID=?, Days=?, Address=?, Contact_Number=? WHERE Email=?";            rs = stmt.executeQuery(sql);
+
+            // Process the result set
+            while (rs.next()) {
+                String Email = rs.getString("Email");
+                String Vehicle_ID = rs.getString("Vehicle_ID");
+                String Days = rs.getString("Days");
+                String Address =rs.getString("Address");
+                               
+                String Contact_Number=rs.getString("Contact_Number");
+                // Add row to table model
+                model.addRow(new Object[]{Email,Vehicle_ID,Days,Address,Contact_Number});
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            // Close resources
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
+       private void fetchAndDisplayRecords(DefaultTableModel model)  {
+         Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Connect to the database
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345");
+
+            // Create and execute a query
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM tbl_bookingreservation";
+            rs = stmt.executeQuery(sql);
+
+            // Process the result set
+            while (rs.next()) {
+                String Email = rs.getString("Email");
+                String Vehicle_ID = rs.getString("Vehicle_ID");
+                String Days = rs.getString("Days");
+                String Address =rs.getString("Address");
+                               
+                String Contact_Number=rs.getString("Contact_Number");
+                // Add row to table model
+                model.addRow(new Object[]{Email,Vehicle_ID,Days,Address,Contact_Number});
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            // Close resources
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+           
+            }    
+        
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -116,8 +202,9 @@ public class AdminReservationUI extends JFrame implements ActionListener {
             ar.setVisible(true);
         }
          else if(e.getSource()==btnclient){
-            Admin ar =new Admin();
-            ar.setVisible(true);
+            Admin ad = new Admin();
+            
+            ad.setVisible(true);
         }
          else if(e.getSource()==btngenerate){
             GenerateInvoices gi =new GenerateInvoices();
@@ -127,8 +214,43 @@ public class AdminReservationUI extends JFrame implements ActionListener {
             AdminInvoices ar =new AdminInvoices();
             ar.setVisible(true);
         }
+      
+            
+else if (e.getSource() instanceof JButton) {
+            JButton clickedButton = (JButton) e.getSource();
+            String buttonText = clickedButton.getText();
+
+            int selectedRow = table.getSelectedRow();
+            switch (buttonText) {
+                case "Update":
+                    if (selectedRow != -1) {
+                        String Email = JOptionPane.showInputDialog(this, "Enter new name:", table.getValueAt(selectedRow, 0));
+                        String Vehicle_ID = JOptionPane.showInputDialog(this, "Enter new contact:", table.getValueAt(selectedRow, 1));
+                        String Days = JOptionPane.showInputDialog(this, "Enter new check-in date (YYYY-MM-DD):", table.getValueAt(selectedRow, 2));
+                        String Address = JOptionPane.showInputDialog(this, "Enter new check-out date (YYYY-MM-DD):", table.getValueAt(selectedRow, 3));
+                      
+                        String Contact_Number = JOptionPane.showInputDialog(this, "Enter new room type:", table.getValueAt(selectedRow, 4));
+                        try{
+                       Update (selectedRow, Email,Vehicle_ID, Days,Address,Contact_Number);                    
+                        } catch (IllegalArgumentException ex) {
+                            JOptionPane.showMessageDialog(this, "Invalid date format. Use YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        }else {
+                        JOptionPane.showMessageDialog(this, "Please select a row to update");
+                    }
+                    break;
+
+               
+
+               
+        // Example:
+        
+    }
+  
     }
 
-   
-       
 }
+    }
+  
+    
+     

@@ -25,7 +25,7 @@ public class HatchbackCar extends JFrame implements ActionListener{
 
         //image
         hatchback = new JLabel();
-        hatchback.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\imghatchback.png").getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH)));
+        hatchback.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\63931\\OneDrive\\Pictures\\Documents\\NetBeansProjects\\New\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\imghatchback.png").getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH)));
         hatchback.setBounds(100, 250, 600, 400);
                 
         //lblTYPES OF HATCHBACK CAR

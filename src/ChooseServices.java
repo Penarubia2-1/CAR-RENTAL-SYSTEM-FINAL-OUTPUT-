@@ -26,7 +26,7 @@ public class ChooseServices  extends JFrame implements ActionListener{
         getContentPane().setBackground(Color.black);
         
         img = new JLabel(); 
-        img.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\63931\\OneDrive\\Documents\\NetBeansProjects\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-1\\src\\imgservices.png").getImage().getScaledInstance(500, 400, Image.SCALE_SMOOTH)));
+        img.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\63931\\OneDrive\\Pictures\\Documents\\NetBeansProjects\\New\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\imgservices.png").getImage().getScaledInstance(500, 400, Image.SCALE_SMOOTH)));
         img.setBounds(10,100, 500, 500);
 
         lblCarRentalSystem = new JLabel("CAR RENTAL SYSTEM");

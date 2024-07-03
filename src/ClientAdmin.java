@@ -26,7 +26,7 @@ public class ClientAdmin extends JFrame implements ActionListener  {
        
        //img
         rent = new JLabel();
-        rent.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\2.png").getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH)));
+        rent.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\63931\\OneDrive\\Pictures\\Documents\\NetBeansProjects\\New\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\2.png").getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH)));
         rent.setBounds(0, 0, 800, 600);
  
         
@@ -74,14 +74,14 @@ public class ClientAdmin extends JFrame implements ActionListener  {
     public void actionPerformed(ActionEvent e) {
         dispose();
         if(e.getSource()==btnClient){
-          SignUp sign=new SignUp();
-                  sign.setVisible(true);
+            Login ca=new Login();
+                  ca.setVisible(true);
         }
         else if(e.getSource()==btnAdmin){
             dispose();
-                 LoginAdmin car=new LoginAdmin();
-                  car.setVisible(true);  
+                LoginAdmin la=new LoginAdmin();
+                  la.setVisible(true);;  
         }
     }
-    
+      
 }

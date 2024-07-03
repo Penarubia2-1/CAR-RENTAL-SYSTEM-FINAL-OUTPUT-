@@ -25,7 +25,7 @@ public class VanCar extends JFrame implements ActionListener{
  
         //image
         van = new JLabel();
-        van.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\imgVan.png").getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH)));
+        van.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\63931\\OneDrive\\Pictures\\Documents\\NetBeansProjects\\New\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\imgVan.png").getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH)));
         van.setBounds(100, 250, 600, 400);
          
        

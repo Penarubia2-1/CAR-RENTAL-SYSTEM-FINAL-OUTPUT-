@@ -145,7 +145,7 @@ public class SignUp extends JFrame implements ActionListener {
 
         // Set background image
         bg = new JLabel();
-        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\imgsignup.png")
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\63931\\OneDrive\\Pictures\\Documents\\NetBeansProjects\\New\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\imgsignup.png")
                 .getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH)));
         bg.setBounds(0, 100, 800, 600);
 
@@ -207,7 +207,10 @@ public class SignUp extends JFrame implements ActionListener {
                 ex.printStackTrace();
             }
         } else if (e.getSource() == btnback) {
-            dispose();
+           
+            ClientAdmin ca=new ClientAdmin();
+                  ca.setVisible(true);
+                  dispose();
             // Handle back button action
         } else if (e.getSource() == btnclear) {
             // Handle clear button action

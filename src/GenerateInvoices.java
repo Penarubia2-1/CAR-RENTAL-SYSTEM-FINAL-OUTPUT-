@@ -1,8 +1,12 @@
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
+
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -24,7 +28,7 @@ public class GenerateInvoices extends JFrame implements ActionListener {
     private JTextField txtAdd = new JTextField();
     private JTextField txtDays = new JTextField();
     private JButton btnGenerate, btnBack, btnClear;
-    
+    private Connection connn;
     private static final String[]id={"001","002","003","004","005","006",
     "007","008","009","010","011","012","013","014","015","016","017","018",
     "019","020","021","022","023","024","025"};
@@ -34,7 +38,21 @@ public class GenerateInvoices extends JFrame implements ActionListener {
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.black);
-        
+        try {
+            // Load MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the database connection
+            String url = "jdbc:mysql://localhost:3308/db_loginadmin";
+            String username = "Jurie";
+            String password = "12345";
+            connn = DriverManager.getConnection(url, username, password);
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Database connection error: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+
       generate= new JLabel("GENERATE INVOICE",SwingConstants.CENTER);  
       generate.setBounds(0,20,600,30);
       generate.setFont(new Font("Arial Black",Font.BOLD,15));
@@ -51,7 +69,7 @@ public class GenerateInvoices extends JFrame implements ActionListener {
       txtAdd.setBounds(260,90,180,30);
       txtAdd.setFont(new Font("Arial",Font.BOLD,13));
       
-      lblcstmrName= new JLabel("Email");  
+      lblcstmrName= new JLabel("EMAIL");  
       lblcstmrName.setBounds(80,140,160,30);
       lblcstmrName.setFont(new Font("Arial Black",Font.BOLD,15));
       lblcstmrName.setForeground(Color.white);
@@ -122,7 +140,7 @@ public class GenerateInvoices extends JFrame implements ActionListener {
       add(btnGenerate);
       add(btnBack);
       add(btnClear);
-       
+       setVisible(true);
 
         
     }
@@ -130,10 +148,23 @@ public class GenerateInvoices extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnClear) {
-            clearFields();
+           
         } else if (e.getSource() == btnGenerate) {
-            dispose();
-            String email = txtfldName.getText();
+            try{  
+            String insertQuery = "INSERT INTO tbl_Invoices (Email, vehicle_ID, days,bcpday,rentaldays) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement pstmt = connn.prepareStatement(insertQuery);
+                pstmt.setString(1, txtfldName.getText());
+                pstmt.setString(2, (java.lang.String) vehiclecmb.getSelectedItem());
+                pstmt.setString(3, txtDays.getText());
+                pstmt.setString(4, txtBCPday.getText());
+                pstmt.setString(5, txtAdd.getText());
+              
+            
+                int rowsInserted = pstmt.executeUpdate();
+                if (rowsInserted > 0) {
+                   dispose();
+                    JOptionPane.showMessageDialog(this, "Sign up successful! User added to database.");
+               String email = txtfldName.getText();
             String vID =(String) vehiclecmb.getSelectedItem();
             String bcpDay = txtBCPday.getText();
             String add = txtAdd.getText();
@@ -141,7 +172,18 @@ public class GenerateInvoices extends JFrame implements ActionListener {
             //invoice
             new InvoiceDisplay(email, vID, bcpDay, add, days);
             
-            clearFields(); 
+            clearFields();
+                  
+                  
+                }
+
+                // Clear input fields after successful signup
+                clearFields();
+
+            } catch (NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
         }
     
     else if(e.getSource()==btnBack){

@@ -38,7 +38,7 @@ public class SUVCar extends JFrame implements ActionListener{
            
            //image
         suv = new JLabel();
-        suv.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\imgSUV.png").getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH)));
+        suv.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\63931\\OneDrive\\Pictures\\Documents\\NetBeansProjects\\New\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\imgSUV.png").getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH)));
         suv.setBounds(100, 250, 600, 400);
  
         //lblTYPES OF SUV CAR

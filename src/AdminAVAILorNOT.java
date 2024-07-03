@@ -10,6 +10,9 @@
 import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class AdminAVAILorNOT extends JFrame implements ActionListener {
     JLabel lblHiAdmin;
     JButton btnexit,btnAdd,btnedit,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btninvoices,btnclient;
@@ -209,8 +212,8 @@ public class AdminAVAILorNOT extends JFrame implements ActionListener {
             ar.setVisible(true);
         }
          else if(e.getSource()==btnclient){
-            Admin ar =new Admin();
-            ar.setVisible(true);
+           Admin ad = new Admin();
+           ad.setVisible(true);
         }
         else if(e.getSource()==btninvoices){
             AdminInvoices ar =new AdminInvoices();
@@ -218,6 +221,6 @@ public class AdminAVAILorNOT extends JFrame implements ActionListener {
         }
         
     }
-
-       
 }
+
+ 

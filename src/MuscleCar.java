@@ -26,7 +26,7 @@ public class MuscleCar extends JFrame implements ActionListener{
         
         //img
         muscle = new JLabel();
-        muscle.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\muscle.png").getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH)));
+        muscle.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\63931\\OneDrive\\Pictures\\Documents\\NetBeansProjects\\New\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\muscle.png").getImage().getScaledInstance(600, 400, Image.SCALE_SMOOTH)));
         muscle.setBounds(100, 250, 600, 400);             
      
         //lblTYPES OF MUSCLE CAR

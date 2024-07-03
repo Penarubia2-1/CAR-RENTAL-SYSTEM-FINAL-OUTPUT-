@@ -21,7 +21,7 @@ public class WelcomeFrame extends JFrame implements ActionListener{
         getContentPane().setBackground(Color.black);
 
         bg = new JLabel();
-        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\rent1.jpg").getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH)));
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\63931\\OneDrive\\Pictures\\Documents\\NetBeansProjects\\New\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\rent.jpg").getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH)));
         bg.setBounds(0, 0, 800, 600);
         
         lblwelcome = new JLabel("CAR RENTAL SYSTEM OF GROUP 6",SwingConstants.CENTER);

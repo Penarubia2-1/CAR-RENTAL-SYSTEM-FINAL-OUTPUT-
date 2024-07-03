@@ -2,6 +2,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /*
@@ -21,6 +27,7 @@ public class BookingReservation  extends JFrame implements ActionListener {
     private JTextField txtfldname = new JTextField();
     private JButton btnreserve, btnBack, btnReset;
     private JComboBox<String> vehiclecmb;
+    private Connection connn;
 
     private static final String[]id={"001","002","003","004","005","006",
     "007","008","009","010","011","012","013","014","015","016","017","018",
@@ -32,10 +39,24 @@ public class BookingReservation  extends JFrame implements ActionListener {
     setLayout(null);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     getContentPane().setBackground(Color.black);
+     try {
+            // Load MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish the database connection
+            String url = "jdbc:mysql://localhost:3308/db_loginadmin";
+            String username = "Jurie";
+            String password = "12345";
+            connn = DriverManager.getConnection(url, username, password);
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Database connection error: " + ex.getMessage());
+            ex.printStackTrace();
+        }
     
      //image
         Reservation = new JLabel();
-        Reservation.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\Daiichi Magno\\Documents\\NetBeansProjects\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\imgreservation.png").getImage().getScaledInstance(600, 600, Image.SCALE_SMOOTH)));
+        Reservation.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\63931\\OneDrive\\Pictures\\Documents\\NetBeansProjects\\New\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\imgreservation.png").getImage().getScaledInstance(600, 600, Image.SCALE_SMOOTH)));
         Reservation.setBounds(0, 120, 600, 600);
          
     
@@ -143,6 +164,36 @@ public class BookingReservation  extends JFrame implements ActionListener {
           
            
         }
-    }   
+   else if (e.getSource() == btnreserve){
+      try{
+       String insertQuery = "INSERT INTO tbl_bookingreservation (Email, Vehicle_ID, Days,Address,Contact_Number) VALUES (?, ?, ?, ?, ?)";
+          
+       PreparedStatement pstmt = connn.prepareStatement(insertQuery);
+                pstmt.setString(1, txtfldname.getText());
+                pstmt.setString(2, (java.lang.String) vehiclecmb.getSelectedItem());
+                pstmt.setString(3, txtflddays.getText());
+                pstmt.setString(4, txtfldAddress.getText());
+                pstmt.setString(5, txtfldContactnumber.getText());
+              
+            
+                int rowsInserted = pstmt.executeUpdate();
+                if (rowsInserted > 0) {
+                   dispose();
+                    JOptionPane.showMessageDialog(this, "Sign up successful! User added to database.");
+                }
+                  
+                
+
+                // Clear input fields after successful signup
+                
+
+            } catch (NumberFormatException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        }
+    
+   }
 }
+
     

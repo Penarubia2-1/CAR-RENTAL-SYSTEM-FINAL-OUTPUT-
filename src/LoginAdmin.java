@@ -4,6 +4,11 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,7 +34,12 @@ public class LoginAdmin extends JFrame implements ActionListener{
     private JLabel lblEmail,lblPassword,lblResult, lblLogin,lblif,bg;
     private JTextField txtfldEmail = new JTextField();
     private JPasswordField psswrdfldPassword = new JPasswordField();
-    private JButton btnLogin,btnback;
+    private JButton btnLogin,btnback,btnCreate;
+    private Connection con;
+    
+
+    private PreparedStatement pst;
+    private ResultSet rs;
     
     LoginAdmin(){
      setTitle("Log In As Admin");
@@ -37,10 +47,20 @@ public class LoginAdmin extends JFrame implements ActionListener{
      setLayout(null);
      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      getContentPane().setBackground(Color.black);
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3308/db_loginadmin"; // Adjust URL as per your database configuration
+            String dbUsername = "Jurie"; // Replace with your database username
+            String dbPassword = "12345"; // Replace with your database password
+            con = DriverManager.getConnection(url, dbUsername, dbPassword);
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Database connection error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
 
       bg = new JLabel();
-      bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\gboyc\\Documents\\NetBeansProjects\\Car Rental System\\src\\myimg.png").getImage().getScaledInstance(200, 400, Image.SCALE_SMOOTH)));
-      bg.setBounds(500, 90, 200, 400);
+        bg.setIcon(new ImageIcon(new ImageIcon("C:\\Users\\63931\\OneDrive\\Pictures\\Documents\\NetBeansProjects\\New\\CAR-RENTAL-SYSTEM-FINAL-OUTPUT-\\src\\myimg.png").getImage().getScaledInstance(200, 400, Image.SCALE_SMOOTH)));
+        bg.setBounds(500, 90, 200, 400);
+
      
      lblLogin = new JLabel("LOGIN FOR ADMIN",SwingConstants.CENTER);
      lblLogin.setBounds(0 ,40 ,800 , 30 );
@@ -77,8 +97,22 @@ public class LoginAdmin extends JFrame implements ActionListener{
      btnback.setForeground(Color.black);
      btnback.addActionListener(this);
      
+    lblif = new JLabel("if you don't have an account:");
+        lblif.setBounds(210, 300, 220, 40);
+        lblif.setFont(new Font("Arial", Font.ITALIC, 12));
+        lblif.setForeground(Color.white);
+
+        btnCreate = new JButton("CREATE ACCOUNT");
+        btnCreate.setBounds(160, 340, 220, 30);
+        btnCreate.setFont(new Font("Arial", Font.BOLD, 18));
+        btnCreate.setBackground(Color.orange);
+        btnCreate.setForeground(Color.black);
+        btnCreate.addActionListener(this);
+             
      add(lblEmail);
      add(lblPassword);
+     add(lblif);
+     add(btnCreate);
      add(txtfldEmail);
      add(psswrdfldPassword);
      add(btnLogin);
@@ -91,12 +125,31 @@ public class LoginAdmin extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
             if (e.getSource()==btnLogin){
-            String Email = txtfldEmail.getText();
-            String Password = new String(psswrdfldPassword.getPassword());
-            JOptionPane.showMessageDialog(this, "Login successful!");
-            dispose();
-            AdminAVAILorNOT ad=new AdminAVAILorNOT();
-            ad.setVisible(true);   
+             String email = txtfldEmail.getText();
+            String password = new String(psswrdfldPassword.getPassword());
+
+            try {
+                String sql = "SELECT * FROM tbl_admin WHERE Email=? AND Password=?";
+                pst = con.prepareStatement(sql);
+                pst.setString(1, email);
+                pst.setString(2, password);
+
+                rs = pst.executeQuery();
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(this, "Login successful!");
+                    dispose();
+                      Admin ad=new Admin();
+                  ad.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Login failed! Invalid credentials.");
+                }
+
+                rs.close();
+                pst.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "SQL Error: " + ex.getMessage(), "SQL Error", JOptionPane.ERROR_MESSAGE);
+            }
+          
         }
             else if(e.getSource()==btnback){
             dispose();
@@ -106,5 +159,10 @@ public class LoginAdmin extends JFrame implements ActionListener{
         
         
 }
+            else if (e.getSource() == btnCreate){
+                  AdminSignup  admin=new AdminSignup();
+            admin.setVisible(true);
+                
+            }
 }
 }

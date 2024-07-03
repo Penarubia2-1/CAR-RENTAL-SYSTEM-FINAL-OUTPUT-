@@ -10,6 +10,11 @@
 import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 
 public class AdminInvoices extends JFrame implements ActionListener {
@@ -94,10 +99,48 @@ public class AdminInvoices extends JFrame implements ActionListener {
         btnRESERVATIONS.addActionListener(this);
         btnAVAILorNOT.addActionListener(this);
     }
-            private void fetchAndDisplayRecords(DefaultTableModel model) {
-            
-            
-    }
+         private void fetchAndDisplayRecords(DefaultTableModel model)  {
+         Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Connect to the database
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345");
+
+            // Create and execute a query
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM tbl_invoices";
+            rs = stmt.executeQuery(sql);
+
+            // Process the result set
+            while (rs.next()) {
+                String Email = rs.getString("Email");
+                String Vehicle_ID = rs.getString("Vehicle_ID");
+                String Days = rs.getString("Days");
+                String bcpday =rs.getString("bcpday");
+                               
+                String rentaldays=rs.getString("rentaldays");
+                // Add row to table model
+                model.addRow(new Object[]{Email,Vehicle_ID,Days,bcpday,rentaldays});
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            // Close resources
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+
+        
+          
+        }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -115,6 +158,11 @@ public class AdminInvoices extends JFrame implements ActionListener {
             AdminAVAILorNOT ar =new AdminAVAILorNOT();
             ar.setVisible(true);
         }
+         else if(e.getSource()== btnclient){
+             Admin ad = new Admin();
+                  ad.setVisible(true);
+         }
+             
     }
 
        
