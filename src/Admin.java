@@ -225,7 +225,7 @@ public class Admin extends JFrame implements ActionListener {
         else if (e.getSource()==btnAdd){
             String Email = JOptionPane.showInputDialog(this, "Enter Email:");
             String Age = JOptionPane.showInputDialog(this, "Enter Age:");
-            String Phone = JOptionPane.showInputDialog(this, "Enter Phone:");
+            String Phone = JOptionPane.showInputDialog(this, "Enter Contact Number:");
             String Address = JOptionPane.showInputDialog(this, "Enter Address:");
             String PostalCode = JOptionPane.showInputDialog(this, "Enter Postal Code:");
             String Password = JOptionPane.showInputDialog(this, "Enter Password:");

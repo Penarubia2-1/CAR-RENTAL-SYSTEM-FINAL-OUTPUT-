@@ -126,16 +126,17 @@ public class Login extends JFrame implements ActionListener {
                 rs = pst.executeQuery();
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(this, "Login successful!");
-                   
+                    dispose();
+                ChooseServices cs = new ChooseServices();
+                    cs.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Login failed! Invalid credentials.");
                 }
 
                 rs.close();
                 pst.close();
-                ChooseServices cs = new ChooseServices();
-                    cs.setVisible(true);
-                    dispose();
+               
+                   
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, "SQL Error: " + ex.getMessage(), "SQL Error", JOptionPane.ERROR_MESSAGE);
             }
