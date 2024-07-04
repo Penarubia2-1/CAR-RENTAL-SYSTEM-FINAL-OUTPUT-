@@ -115,6 +115,22 @@ public class Admin extends JFrame implements ActionListener {
     
     
     }
+        private void deleteRecord(int selectedRow) {
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
+        String sql = "DELETE FROM tbl_client WHERE Email=?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            String emailToDelete = (String) table.getValueAt(selectedRow, 0);
+            pstmt.setString(1, emailToDelete);
+            pstmt.executeUpdate();
+            // Remove row from JTable
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.removeRow(selectedRow);
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+}
+
      private void updateRecord(int selectedRow, String Email, String Age, String Phone, String Address, String PostalCode,String Password) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
             String sql = "UPDATE tbl_client SET Email=?, Age=?, Phone=?, Address=?, PostalCode=?,Password=? WHERE Email=?";
@@ -133,34 +149,8 @@ public class Admin extends JFrame implements ActionListener {
         }
     }
          
-     private void deleteRecord(int selectedRow) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345");
-            String sql = "DELETE FROM tbl_client WHERE Email=?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, (String) table.getValueAt(selectedRow, 0)); 
-            pstmt.executeUpdate();
-
-            // Remove row from table model
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
-            model.removeRow(selectedRow);
-
-            JOptionPane.showMessageDialog(this, "Record deleted successfully.");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-            
+     
+    
         private void fetchAndDisplayRecords(DefaultTableModel model)  {
          Connection conn = null;
         Statement stmt = null;
@@ -236,6 +226,18 @@ public class Admin extends JFrame implements ActionListener {
             model.addRow(new Object[]{Email, Age, Phone, Address,PostalCode, Password});
        
         }
+        else if (e.getSource() == btnDelete){
+           
+    int selectedRow = table.getSelectedRow();
+    if (selectedRow != -1) {
+        deleteRecord(selectedRow);
+    } else {
+        JOptionPane.showMessageDialog(this, "Please select a row to delete");
+    }
+}
+
+                   
+        
         else if (e.getSource() == btnUpdate) {
           int selectedRow = table.getSelectedRow();
             if (selectedRow != -1) {
@@ -255,15 +257,21 @@ public class Admin extends JFrame implements ActionListener {
                 table.setValueAt(PostalCode, selectedRow, 4);
                  table.setValueAt(Password, selectedRow, 4);
 
-            } else {
+            } 
+        
+        
+        
+            else {
                 JOptionPane.showMessageDialog(this, "Please select a row to update");
             }
-        }
     }
-    
+        
+        }
+
  public static void main(String[] args) {
         new Admin();
-    }}
+    }
+}
 
       
             

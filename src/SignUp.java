@@ -174,6 +174,7 @@ public class SignUp extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSignUp) {
+            dispose();
             try {
                 // Validate age
                 int age = Integer.parseInt(txtfldAge.getText());
