@@ -98,7 +98,7 @@ public class Admin extends JFrame implements ActionListener {
     }
         private void addRecord(String Email, String Age, String Phone, String Address, String PostalCode,String  Password) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
-            String sql = "INSERT INTO tbl_client (Email, Vehicle_ID, Days, bcpday, rentaldays) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO tbl_client (Email, Age, Phone, Address,PostalCode,Password) VALUES (?, ?, ?, ?, ?,?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, Email);
                 pstmt.setString(2, Age);
