@@ -13,7 +13,7 @@ import javax.swing.*;
  * @author lenovo
  */
 public class OtherServices extends JFrame implements ActionListener{
-    JLabel lblWeoffer,lblitincludes,lblMaintenance,lblrepair;
+    JLabel lblWeoffer,lblitincludes,lblMaintenance;
     JButton btnMaintenance,btnrepair,btnback,btnlogout;
     
      OtherServices(){
@@ -36,27 +36,22 @@ public class OtherServices extends JFrame implements ActionListener{
        add(lblitincludes);
        
        //btn
-       btnMaintenance = new JButton("MAINTENANCE");
-       btnMaintenance.setBounds(215,85,170,50);
+       btnMaintenance = new JButton("MAINTENANCE & REPAIR");
+       btnMaintenance.setBounds(165,135,250,50);
        btnMaintenance.setFont(new Font("Arial", Font.BOLD,15)); 
        btnMaintenance.setForeground(Color.black);
        btnMaintenance.setBackground(Color.orange);
        add(btnMaintenance);
        btnMaintenance.addActionListener(this);
       
-       btnrepair = new JButton("REPAIR");
-       btnrepair.setBounds(215,155,170,50);
-       btnrepair.setFont(new Font("Arial", Font.BOLD,15));   
-       btnrepair.setForeground(Color.black);
-       btnrepair.setBackground(Color.orange);
-       add(btnrepair);
-       btnrepair.addActionListener(this);
+      
       
       
        btnback = new JButton("BACK");
-       btnback.setBounds(140,265,140,30);
+       btnback.setBounds(110,265,140,30);
        btnback.setFont(new Font("Arial", Font.BOLD,15));
        btnback.setForeground(Color.black);
+       btnback.setBackground(Color.orange);
        add(btnback);
        btnback.addActionListener(this);
       
@@ -64,9 +59,10 @@ public class OtherServices extends JFrame implements ActionListener{
        btnlogout.setBounds(320,265,140,30);
        btnlogout.setFont(new Font("Arial", Font.BOLD,15));
        btnlogout.setForeground(Color.black);
+       btnlogout.setBackground(Color.orange);
        add(btnlogout);
        btnlogout.addActionListener(this);
-      
+       setVisible(true);
 }
 
     @Override
@@ -82,6 +78,14 @@ public class OtherServices extends JFrame implements ActionListener{
             WelcomeFrame wf=new WelcomeFrame();
             wf.setVisible(true);
         }
+        else if(e.getSource()==btnMaintenance){
+            maintenance mn=new maintenance();
+            mn.setVisible(true);
+        }
     }
+public static void main(String[] args) {
+    new OtherServices();
 }
+}
+
     

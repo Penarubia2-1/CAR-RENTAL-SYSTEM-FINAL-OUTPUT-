@@ -28,7 +28,7 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         btnRESERVATIONS = new JButton("RESERVATIONS");
         btnRESERVATIONS.setBounds(220, 60, 140, 30);
 
-        btnAVAILorNOT = new JButton("CHANGES OF CAR");
+        btnAVAILorNOT = new JButton("SERVICES");
         btnAVAILorNOT.setBounds(380, 60, 190, 30);
 
         btninvoices = new JButton("INVOICES");
@@ -43,8 +43,9 @@ public class AdminReservationUI extends JFrame implements ActionListener {
 
         // Add columns to the table model
         model.addColumn("Email");
-        model.addColumn("Vehicle_ID");
-        model.addColumn("Days");
+        model.addColumn("Vehicle");
+        model.addColumn("Date of Rent");
+        model.addColumn("Date of Return");
         model.addColumn("Address");
         model.addColumn("Contact Number");
 
@@ -93,15 +94,16 @@ public class AdminReservationUI extends JFrame implements ActionListener {
     }
      
 
-    private void addRecord(String Email, String Vehicle_ID, String Days, String Address, String Contact_Number) {
+    private void addRecord(String Email, String Vehicle, String Date_Rent,String Date_Return, String Address, String Contact_Number) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
-            String sql = "INSERT INTO tbl_bookingreservation (Email, Vehicle_ID, Days, Address, Conact_Number) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO tbl_bookingreservation (Email, Vehicle,Date_Rent,Date_Return, Address, Conact_Number) VALUES (?, ?, ?, ?, ?,?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, Email);
-                pstmt.setString(2, Vehicle_ID);
-                pstmt.setString(3, Days);
-                pstmt.setString(4, Address);
-                pstmt.setString(5, Contact_Number);
+                pstmt.setString(2, Vehicle);
+                pstmt.setString(3, Date_Rent);
+                pstmt.setString(4, Date_Return);
+                pstmt.setString(5, Address);
+                pstmt.setString(6, Contact_Number);
                 pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
@@ -136,16 +138,17 @@ public class AdminReservationUI extends JFrame implements ActionListener {
         }
     }
 
-    private void updateRecord(int selectedRow, String Email, String Vehicle_ID, String Days, String Address, String Contact_Number) {
+    private void updateRecord(int selectedRow,String Email, String Vehicle, String Date_Rent,String Date_Return, String Address, String Contact_Number) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
-            String sql = "UPDATE tbl_bookingreservation SET Email=?, Vehicle_ID=?, Days=?, Address=?, Contact_Number=? WHERE Email=?";
+            String sql = "UPDATE tbl_bookingreservation SET Email=?, Vehicle=?, Date_Rent=?,Date_Return=? Address=?, Contact_Number=? WHERE Email=?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, Email);
-                pstmt.setString(2, Vehicle_ID);
-                pstmt.setString(3, Days);
-                pstmt.setString(4, Address);
-                pstmt.setString(5, Contact_Number);
-                pstmt.setString(6, (String) table.getValueAt(selectedRow, 0));
+                pstmt.setString(2, Vehicle);
+                pstmt.setString(3, Date_Rent);
+                pstmt.setString(4, Date_Return);
+                pstmt.setString(5, Address);
+                pstmt.setString(6, Contact_Number);
+                pstmt.setString(7, (String) table.getValueAt(selectedRow, 0));
                 pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
@@ -160,11 +163,12 @@ public class AdminReservationUI extends JFrame implements ActionListener {
 
             while (rs.next()) {
                 String Email = rs.getString("Email");
-                String Vehicle_ID = rs.getString("Vehicle_ID");
-                String Days = rs.getString("Days");
+                String Vehicle = rs.getString("Vehicle");
+                String Date_Rent = rs.getString("Day Rent");
+                String Date_Return = rs.getString("Day Return");
                 String Address = rs.getString("Address");
                 String Contact_Number = rs.getString("Contact_Number");
-                model.addRow(new Object[]{Email, Vehicle_ID, Days, Address, Contact_Number});
+                model.addRow(new Object[]{Email, Vehicle, Date_Rent,Date_Return, Address, Contact_Number});
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -179,7 +183,7 @@ public class AdminReservationUI extends JFrame implements ActionListener {
             wf.setVisible(true);
         } else if (e.getSource() == btnAVAILorNOT) {
             dispose();
-            AdminAVAILorNOT ar = new AdminAVAILorNOT();
+            Adminservices ar = new Adminservices();
             ar.setVisible(true);
         } else if (e.getSource() == btnclient) {
             dispose();
@@ -195,14 +199,15 @@ public class AdminReservationUI extends JFrame implements ActionListener {
             ar.setVisible(true);
         }else if(e.getSource()==btnAdd){
             String Email = JOptionPane.showInputDialog(this, "Enter Email:");
-            String Vehicle_ID = JOptionPane.showInputDialog(this, "Enter Vehicle ID:");
-            String Days = JOptionPane.showInputDialog(this, "Enter Days:");
-            String Address = JOptionPane.showInputDialog(this, "Enter Cost Per Day:");
-            String Contact_Number = JOptionPane.showInputDialog(this, "Enter Rental Days:");
-            addRecord(Email, Vehicle_ID, Days, Address, Contact_Number);
+            String Vehicle = JOptionPane.showInputDialog(this, "Enter Vehicle ID:");
+            String Date_Rent = JOptionPane.showInputDialog(this, "Enter Days of Rent:");
+            String Date_Return = JOptionPane.showInputDialog(this, "Enter Days of Return:");
+            String Address = JOptionPane.showInputDialog(this, "Enter Address:");
+            String Contact_Number = JOptionPane.showInputDialog(this, "Enter Contact Number:");
+            addRecord(Email, Vehicle, Date_Rent,Date_Return, Address, Contact_Number);
             //add record
             DefaultTableModel model = (DefaultTableModel) table.getModel();
-            model.addRow(new Object[]{Email, Vehicle_ID, Days, Address, Contact_Number});
+            model.addRow(new Object[]{Email, Vehicle,Date_Rent, Date_Return, Address, Contact_Number});
     
         }else if(e.getSource()==btnDelete){
              int selectedRow = table.getSelectedRow();
@@ -219,17 +224,19 @@ public class AdminReservationUI extends JFrame implements ActionListener {
             int selectedRow = table.getSelectedRow();
             if (selectedRow != -1) {
                 String Email = JOptionPane.showInputDialog(this, "Enter new Email:", table.getValueAt(selectedRow, 0));
-                String Vehicle_ID = JOptionPane.showInputDialog(this, "Enter new Vehicle ID:", table.getValueAt(selectedRow, 1));
-                String Days = JOptionPane.showInputDialog(this, "Enter new Days:", table.getValueAt(selectedRow, 2));
-                String Address = JOptionPane.showInputDialog(this, "Enter new Address:", table.getValueAt(selectedRow, 3));
-                String Contact_Number = JOptionPane.showInputDialog(this, "Enter new Contact Number:", table.getValueAt(selectedRow, 4));
-                updateRecord(selectedRow, Email, Vehicle_ID, Days, Address, Contact_Number);
+                String Vehicle = JOptionPane.showInputDialog(this, "Enter new Vehicle ID:", table.getValueAt(selectedRow, 1));
+                String Date_Rent = JOptionPane.showInputDialog(this, "Enter new Days of Rent:", table.getValueAt(selectedRow, 2));
+                String Date_Return = JOptionPane.showInputDialog(this, "Enter new Days of Return:", table.getValueAt(selectedRow, 3));
+                String Address = JOptionPane.showInputDialog(this, "Enter new Address:", table.getValueAt(selectedRow, 4));
+                String Contact_Number = JOptionPane.showInputDialog(this, "Enter new Contact Number:", table.getValueAt(selectedRow, 5));
+                updateRecord(selectedRow, Email, Vehicle, Date_Rent,Date_Return, Address, Contact_Number);
                 // Update the table 
                 table.setValueAt(Email, selectedRow, 0);
-                table.setValueAt(Vehicle_ID, selectedRow, 1);
-                table.setValueAt(Days, selectedRow, 2);
-                table.setValueAt(Address, selectedRow, 3);
-                table.setValueAt(Contact_Number, selectedRow, 4);
+                table.setValueAt(Vehicle, selectedRow, 1);
+                table.setValueAt(Date_Rent, selectedRow, 2);
+                table.setValueAt(Date_Return, selectedRow, 3);
+                table.setValueAt(Address, selectedRow, 4);
+                table.setValueAt(Contact_Number, selectedRow, 5);
             } else {
                 JOptionPane.showMessageDialog(this, "Please select a row to update");
             }

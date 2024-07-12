@@ -10,23 +10,26 @@
 import java.awt.Font;
 import javax.swing.*;
 import java.awt.event.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-public class Admin extends JFrame implements ActionListener {
+public class Adminservices extends JFrame implements ActionListener {
     private JLabel lblHiAdmin;
     private JButton btnexit,btnAdd,btnDelete,btnUpdate,btnRESERVATIONS,btnAVAILorNOT,btninvoices,btnclient;
     private JTable table;
     private JScrollPane scrollPane;
-    Admin(){
+    Adminservices(){
         setTitle("Hi Admin!");
         setSize(1000,700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         
         
-        lblHiAdmin = new JLabel("Welcome, Admin! Check for Clients",SwingConstants.CENTER);
+        lblHiAdmin = new JLabel("Welcome, Admin! Check for Services",SwingConstants.CENTER);
         lblHiAdmin.setBounds(0, 5, 1000, 80);
         lblHiAdmin.setFont(new Font("Arial", Font.BOLD, 15));
         
@@ -52,11 +55,11 @@ public class Admin extends JFrame implements ActionListener {
 
         // Add columns to the table model
         model.addColumn("Email");
-        model.addColumn("Contact Number");
-        model.addColumn("Age");
+        model.addColumn("Services");
+        model.addColumn("Date_Repair");
         model.addColumn("Address");
-        model.addColumn("Postal Code");
-        model.addColumn("Password");
+        model.addColumn("Contact_Number");
+        
         // Fetch records from database and populate the table
         fetchAndDisplayRecords(model);
 
@@ -96,16 +99,17 @@ public class Admin extends JFrame implements ActionListener {
         btnAVAILorNOT.addActionListener(this);
         btninvoices.addActionListener(this);
     }
-        private void addRecord(String Email, String Age, String Phone, String Address, String PostalCode,String  Password) {
+    
+        private void addRecord(String Email, String Services, String Date_Repair, String Address, String Contact_Number) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
-            String sql = "INSERT INTO tbl_client (Email, Age, Phone, Address,PostalCode,Password) VALUES (?, ?, ?, ?, ?,?)";
+            String sql = "INSERT INTO admin_services(Email, Services, Date_Repair, Address,Contact_Number) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, Email);
-                pstmt.setString(2, Age);
-                pstmt.setString(3, Phone);
+                pstmt.setString(2, Services);
+                pstmt.setString(3, Date_Repair);
                 pstmt.setString(4, Address);
-                pstmt.setString(5, PostalCode);
-                pstmt.setString(6, Password);
+                pstmt.setString(5, Contact_Number);
+                
                 
                 pstmt.executeUpdate();
             }
@@ -117,7 +121,7 @@ public class Admin extends JFrame implements ActionListener {
     }
         private void deleteRecord(int selectedRow) {
     try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
-        String sql = "DELETE FROM tbl_client WHERE Email=?";
+        String sql = "DELETE FROM admin_services WHERE Email=?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             String emailToDelete = (String) table.getValueAt(selectedRow, 0);
             pstmt.setString(1, emailToDelete);
@@ -131,16 +135,16 @@ public class Admin extends JFrame implements ActionListener {
     }
 }
 
-     private void updateRecord(int selectedRow, String Email, String Age, String Phone, String Address, String PostalCode,String Password) {
+     private void updateRecord(int selectedRow, String Email, String Services, String Date_Repair, String Address, String Contact_Number) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
-            String sql = "UPDATE tbl_client SET Email=?, Age=?, Phone=?, Address=?, PostalCode=?,Password=? WHERE Email=?";
+            String sql = "UPDATE admin_services SET Email=?, Services=?, Date_Repair=?, Address=?, Contact_Number=? WHERE Email=?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, Email);
-                pstmt.setString(2, Age);
-                pstmt.setString(3, Phone);
+                pstmt.setString(2, Services);
+                pstmt.setString(3, Date_Repair);
                 pstmt.setString(4, Address);
-                pstmt.setString(5, PostalCode);
-                pstmt.setString(6, Password);
+                pstmt.setString(5, Contact_Number);
+                
                 pstmt.setString(7, (String) table.getValueAt(selectedRow, 0));
                 pstmt.executeUpdate();
             }
@@ -162,19 +166,19 @@ public class Admin extends JFrame implements ActionListener {
 
             // Create and execute a query
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM tbl_client";
+            String sql = "SELECT * FROM admin_services";
             rs = stmt.executeQuery(sql);
 
             // Process the result set
             while (rs.next()) {
                 String Email = rs.getString("Email");
-                String Age = rs.getString("Age");
-                String Phone = rs.getString("Phone");
+                String Services = rs.getString("Services");
+                String Date_Repair = rs.getString("Date_Repair");
                 String Address=rs.getString("Address");
-                String Postalcode=rs.getString("PostalCode");                
-                String Password=rs.getString("Password");
+                String Contact_Number=rs.getString("Contact_Number");                
+               
                 // Add row to table model
-                model.addRow(new Object[]{Email,Age,Phone,Address,Postalcode,Password});
+                model.addRow(new Object[]{Email,Services,Date_Repair,Address,Contact_Number});
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -214,16 +218,16 @@ public class Admin extends JFrame implements ActionListener {
         }
         else if (e.getSource()==btnAdd){
             String Email = JOptionPane.showInputDialog(this, "Enter Email:");
-            String Age = JOptionPane.showInputDialog(this, "Enter Age:");
-            String Phone = JOptionPane.showInputDialog(this, "Enter Contact Number:");
+            String Services = JOptionPane.showInputDialog(this, "Enter Services:");
+            String Date_Repair = JOptionPane.showInputDialog(this, "Enter Date to Repair:");
             String Address = JOptionPane.showInputDialog(this, "Enter Address:");
-            String PostalCode = JOptionPane.showInputDialog(this, "Enter Postal Code:");
-            String Password = JOptionPane.showInputDialog(this, "Enter Password:");
+            String Contact_Number = JOptionPane.showInputDialog(this, "Enter Contact_Number:");
+            
 
-            addRecord(Email, Age, Phone, Address, PostalCode,Password);
+            addRecord(Email, Services, Date_Repair, Address, Contact_Number);
             // Add the new record 
             DefaultTableModel model = (DefaultTableModel) table.getModel();
-            model.addRow(new Object[]{Email, Age, Phone, Address,PostalCode, Password});
+            model.addRow(new Object[]{Email, Services, Date_Repair, Address,Contact_Number});
        
         }
         else if (e.getSource() == btnDelete){
@@ -242,20 +246,20 @@ public class Admin extends JFrame implements ActionListener {
           int selectedRow = table.getSelectedRow();
             if (selectedRow != -1) {
                 String Email = JOptionPane.showInputDialog(this, "Enter new Email:", table.getValueAt(selectedRow, 0));
-                String Age = JOptionPane.showInputDialog(this, "Enter new Vehicle ID:", table.getValueAt(selectedRow, 1));
-                String Phone = JOptionPane.showInputDialog(this, "Enter new Days:", table.getValueAt(selectedRow, 2));
+                String Services = JOptionPane.showInputDialog(this, "Enter new Services:", table.getValueAt(selectedRow, 1));
+                String Date_Repair = JOptionPane.showInputDialog(this, "Enter new Date to Repair:", table.getValueAt(selectedRow, 2));
                 String Address = JOptionPane.showInputDialog(this, "Enter new Address:", table.getValueAt(selectedRow, 3));
-                String PostalCode = JOptionPane.showInputDialog(this, "Enter new Contact Number:", table.getValueAt(selectedRow, 4));
-                String Password = JOptionPane.showInputDialog(this, "Enter new Contact Number:", table.getValueAt(selectedRow, 4));
+                String Contact_Number = JOptionPane.showInputDialog(this, "Enter new Contact Number:", table.getValueAt(selectedRow, 4));
+                
 
-                updateRecord(selectedRow, Email, Age, Phone, Address, PostalCode,Password);
+                updateRecord(selectedRow, Email, Services, Date_Repair, Address, Contact_Number);
                 // Update the table model
                 table.setValueAt(Email, selectedRow, 0);
-                table.setValueAt(Age, selectedRow, 1);
-                table.setValueAt(Phone, selectedRow, 2);
+                table.setValueAt(Services, selectedRow, 1);
+                table.setValueAt(Date_Repair, selectedRow, 2);
                 table.setValueAt(Address, selectedRow, 3);
-                table.setValueAt(PostalCode, selectedRow, 4);
-                 table.setValueAt(Password, selectedRow, 4);
+                table.setValueAt(Contact_Number, selectedRow, 4);
+                
 
             } 
         
@@ -276,6 +280,3 @@ public class Admin extends JFrame implements ActionListener {
       
             
     
-
-
-                

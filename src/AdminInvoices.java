@@ -39,7 +39,7 @@ public class AdminInvoices extends JFrame implements ActionListener {
         btnRESERVATIONS=new JButton("RESERVATIONS");
         btnRESERVATIONS.setBounds(220,60,140,30);
         
-        btnAVAILorNOT=new JButton("CHANGES OF CAR");
+        btnAVAILorNOT=new JButton("OTHER SERVICES");
         btnAVAILorNOT.setBounds(380,60,190,30);
         
         btninvoices=new JButton("INVOICES");
@@ -56,7 +56,7 @@ public class AdminInvoices extends JFrame implements ActionListener {
         // Add columns to the table model
         model.addColumn("Invoie ID");
         model.addColumn("Customer Name");
-        model.addColumn("Vehicle ID");
+        model.addColumn("Vehicle");
         model.addColumn("Cost Per Day");
         model.addColumn("Rental Days");
 
@@ -100,12 +100,12 @@ public class AdminInvoices extends JFrame implements ActionListener {
        }
      
 
-    private void addRecord(String Email, String Vehicle_ID, String Days, String bcpday, String rentaldays) {
+    private void addRecord(String Email, String Vehicle, String Days, String bcpday, String rentaldays) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
-            String sql = "INSERT INTO tbl_invoices (Email, Vehicle_ID, Days, bcpday, rentaldays) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO tbl_invoices (Email, Vehicle, Days, bcpday, rentaldays) VALUES (?, ?, ?, ?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, Email);
-                pstmt.setString(2, Vehicle_ID);
+                pstmt.setString(2, Vehicle);
                 pstmt.setString(3, Days);
                 pstmt.setString(4, bcpday);
                 pstmt.setString(5, rentaldays);
@@ -116,12 +116,12 @@ public class AdminInvoices extends JFrame implements ActionListener {
         }
     
     }
-     private void updateRecord(int selectedRow, String Email, String Vehicle_ID, String Days, String bcpday, String rentaldays) {
+     private void updateRecord(int selectedRow, String Email, String Vehicle, String Days, String bcpday, String rentaldays) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345")) {
-            String sql = "UPDATE tbl_invoices SET Email=?, Vehicle_ID=?, Days=?, Address=?, Contact_Number=? WHERE Email=?";
+            String sql = "UPDATE tbl_invoices SET Email=?, Vehicle=?, Days=?, Address=?, Contact_Number=? WHERE Email=?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, Email);
-                pstmt.setString(2, Vehicle_ID);
+                pstmt.setString(2, Vehicle);
                 pstmt.setString(3, Days);
                 pstmt.setString(4, bcpday);
                 pstmt.setString(5, rentaldays);
@@ -138,7 +138,7 @@ public class AdminInvoices extends JFrame implements ActionListener {
 
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/db_loginadmin", "Jurie", "12345");
-            String sql = "DELETE FROM tbl_invoices WHERE Invoice_ID=?";
+            String sql = "DELETE FROM tbl_invoices WHERE Invoice=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, (String) table.getValueAt(selectedRow, 0)); 
             pstmt.executeUpdate();
@@ -175,7 +175,7 @@ public class AdminInvoices extends JFrame implements ActionListener {
 
             while (rs.next()) {
                 String Email = rs.getString("Email");
-                String Vehicle_ID = rs.getString("Vehicle_ID");
+                String Vehicle_ID = rs.getString("Vehicle");
                 String Days = rs.getString("Days");
                 String bcpday =rs.getString("bcpday");   
                 String rentaldays=rs.getString("rentaldays");
@@ -214,7 +214,7 @@ public class AdminInvoices extends JFrame implements ActionListener {
         }
          else if(e.getSource()==btnAVAILorNOT){
              dispose();
-            AdminAVAILorNOT ar =new AdminAVAILorNOT();
+            Adminservices ar =new Adminservices();
             ar.setVisible(true);
         }
          else if(e.getSource()== btnclient){
@@ -224,14 +224,14 @@ public class AdminInvoices extends JFrame implements ActionListener {
          }
          else if(e.getSource()==btnAdd){
             String Email = JOptionPane.showInputDialog(this, "Enter Email:");
-            String Vehicle_ID = JOptionPane.showInputDialog(this, "Enter Vehicle ID:");
+            String Vehicle= JOptionPane.showInputDialog(this, "Enter Vehicle");
             String Days = JOptionPane.showInputDialog(this, "Enter Days:");
             String bcpday = JOptionPane.showInputDialog(this, "Enter Cost Per Day:");
             String rentaldays = JOptionPane.showInputDialog(this, "Enter Rental Days:");
-            addRecord(Email, Vehicle_ID, Days, bcpday, rentaldays);
+            addRecord(Email, Vehicle,Days, bcpday, rentaldays);
             // Add the new record 
             DefaultTableModel model = (DefaultTableModel) table.getModel();
-            model.addRow(new Object[]{Email, Vehicle_ID, Days, bcpday, rentaldays});
+            model.addRow(new Object[]{Email, Vehicle, Days, bcpday, rentaldays});
         }
 
          
@@ -250,14 +250,14 @@ public class AdminInvoices extends JFrame implements ActionListener {
               int selectedRow = table.getSelectedRow();
             if (selectedRow != -1) {
                 String Email = JOptionPane.showInputDialog(this, "Enter new Email:", table.getValueAt(selectedRow, 0));
-                String Vehicle_ID = JOptionPane.showInputDialog(this, "Enter new Vehicle ID:", table.getValueAt(selectedRow, 1));
+                String Vehicle = JOptionPane.showInputDialog(this, "Enter new Vehicle:", table.getValueAt(selectedRow, 1));
                 String Days = JOptionPane.showInputDialog(this, "Enter new Days:", table.getValueAt(selectedRow, 2));
                 String bcpday = JOptionPane.showInputDialog(this, "Enter new Cost Per Day:", table.getValueAt(selectedRow, 3));
                 String rentaldays = JOptionPane.showInputDialog(this, "Enter new Rental Days:", table.getValueAt(selectedRow, 4));
-                updateRecord(selectedRow, Email, Vehicle_ID, Days, bcpday, rentaldays);
+                updateRecord(selectedRow, Email, Vehicle, Days, bcpday, rentaldays);
                 // Update the table 
                 table.setValueAt(Email, selectedRow, 0);
-                table.setValueAt(Vehicle_ID, selectedRow, 1);
+                table.setValueAt(Vehicle, selectedRow, 1);
                 table.setValueAt(Days, selectedRow, 2);
                 table.setValueAt(bcpday, selectedRow, 3);
                 table.setValueAt(rentaldays, selectedRow, 4);

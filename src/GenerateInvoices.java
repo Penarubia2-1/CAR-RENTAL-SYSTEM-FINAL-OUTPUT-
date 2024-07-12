@@ -29,9 +29,9 @@ public class GenerateInvoices extends JFrame implements ActionListener {
     private JTextField txtDays = new JTextField();
     private JButton btnGenerate, btnBack, btnClear;
     private Connection connn;
-    private static final String[]id={"001","002","003","004","005","006",
-    "007","008","009","010","011","012","013","014","015","016","017","018",
-    "019","020","021","022","023","024","025"};
+    private static final String[]id={"Chevrolet","Mustang","Ford","Challenger","Dodge","Cherry Tiggo",
+    "Land Rover","Geely GX3","Bai Wagon","Mini MPV","Mini Van","Box Van","Micro Van","Panel Van","Mazda 2","Mazda 3","BYD Dolphin","Honda Brio",
+    "Toyota Wigo","Ford Ranger","Toyota Hilux","Isuzu D-Max","Nissan Navarra","Foton Thunder"};
     GenerateInvoices() {
         setTitle("Generate Rental Invoices");
         setSize(600, 550);
@@ -79,7 +79,7 @@ public class GenerateInvoices extends JFrame implements ActionListener {
       txtfldName.setFont(new Font("Arial",Font.BOLD,13));
       
       //vehiclemodel
-      lblVehicleModel= new JLabel("Vehicle ID");  
+      lblVehicleModel= new JLabel("Vehicle");  
       lblVehicleModel.setBounds(80,190,160,30);
       lblVehicleModel.setFont(new Font("Arial Black",Font.BOLD,15));
       lblVehicleModel.setForeground(Color.white);

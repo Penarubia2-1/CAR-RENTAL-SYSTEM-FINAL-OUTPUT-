@@ -20,7 +20,7 @@ public class AdminAVAILorNOTMAIN {
           EventQueue.invokeLater(new Runnable() {
               @Override
               public void run() {
-                  AdminAVAILorNOT ad=new AdminAVAILorNOT();
+                  Adminservices ad=new Adminservices();
                   ad.setVisible(true);
                   
                   }

@@ -53,8 +53,8 @@ public class ChooseServices  extends JFrame implements ActionListener{
         btnOtherservices.setBackground(Color.orange);
         btnOtherservices.setForeground(Color.black);
         
-        btnback = new JButton("EXIT");
-        btnback.setBounds(210,280,150, 30);
+        btnback = new JButton("LOG OUT");
+        btnback.setBounds(290,350,150, 30);
         btnback.setFont(new Font("Arial", Font.BOLD,15));
         btnback.setBackground(Color.orange);
         btnback.setForeground(Color.black);
@@ -71,6 +71,7 @@ public class ChooseServices  extends JFrame implements ActionListener{
         add(btnReservation);
         add(btnback);
         add(img);
+        setVisible(true);
     }
     @Override
    public void actionPerformed(ActionEvent e){
@@ -93,7 +94,11 @@ public class ChooseServices  extends JFrame implements ActionListener{
            os.setVisible(true);
            }
 }
+public static void main(String[] args) {
+    new ChooseServices();
 }
+}
+
      
      
      
